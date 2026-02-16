@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TBT — Chapter Title Card Directions</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&family=Cinzel:wght@400;500;600;700;900&family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1A2332;
+    --charcoal: #2C2C2C;
+    --cream: #F5F0E8;
+    --ivory: #EDE8DC;
+    --parchment: #D9D0C1;
+    --gold: #B8973A;
+    --warm-gold: #D4A843;
+    --war-red: #8B3A3A;
+    --dusty-gold: #9E8A5C;
+    --sage: #5A6B52;
+    --steel: #4A5568;
+    --warm-gray: #6B6560;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0D0F13;
+    color: var(--cream);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+  }
+
+  /* === NAV & LAYOUT === */
+  .page-header {
+    padding: 48px 48px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .page-header h1 {
+    font-family: 'Lora', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+  .page-header p {
+    font-size: 14px;
+    color: var(--warm-gray);
+    max-width: 720px;
+    line-height: 1.7;
+  }
+  .page-header .subtitle {
+    color: var(--dusty-gold);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .direction-nav {
+    display: flex;
+    gap: 12px;
+    padding: 0 48px;
+    max-width: 1400px;
+    margin: 24px auto 0;
+    border-bottom: 1px solid rgba(184,151,58,0.15);
+    padding-bottom: 0;
+  }
+  .direction-nav button {
+    background: none;
+    border: none;
+    color: var(--warm-gray);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+  }
+  .direction-nav button:hover {
+    color: var(--cream);
+  }
+  .direction-nav button.active {
+    color: var(--warm-gold);
+    border-bottom-color: var(--warm-gold);
+  }
+
+  .direction-section {
+    display: none;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 48px 80px;
+  }
+  .direction-section.active { display: block; }
+
+  .direction-intro {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 48px;
+    margin-bottom: 48px;
+    align-items: start;
+  }
+  .direction-intro h2 {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+  .direction-intro .tagline {
+    font-size: 14px;
+    color: var(--warm-gold);
+    font-style: italic;
+    font-family: 'Lora', serif;
+    margin-bottom: 16px;
+  }
+  .direction-intro .desc {
+    font-size: 13px;
+    color: var(--parchment);
+    line-height: 1.8;
+  }
+  .direction-intro .desc p { margin-bottom: 12px; }
+
+  .spec-box {
+    background: rgba(26,35,50,0.6);
+    border: 1px solid rgba(184,151,58,0.12);
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .spec-box h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--dusty-gold);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.04);
+    font-size: 12px;
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-label { color: var(--warm-gray); }
+  .spec-value { color: var(--cream); font-weight: 500; text-align: right; }
+
+  /* === CHAPTER SELECTOR === */
+  .chapter-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .chapter-btn {
+    background: rgba(26,35,50,0.4);
+    border: 1px solid rgba(184,151,58,0.1);
+    color: var(--warm-gray);
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.25s;
+  }
+  .chapter-btn:hover {
+    border-color: rgba(184,151,58,0.3);
+    color: var(--cream);
+  }
+  .chapter-btn.active {
+    background: rgba(184,151,58,0.12);
+    border-color: var(--gold);
+    color: var(--warm-gold);
+  }
+
+  /* === PREVIEW FRAME === */
+  .preview-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    border: 1px solid rgba(184,151,58,0.08);
+  }
+  .preview-label {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--warm-gray);
+    z-index: 10;
+    font-weight: 500;
+    background: rgba(0,0,0,0.4);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  /* === DIRECTION A: EDITORIAL MINIMALIST === */
+  .card-a {
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-a::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(184,151,58,0.03) 0%, transparent 70%);
+  }
+  .card-a .chapter-num {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(10px, 1.1vw, 13px);
+    text-transform: uppercase;
+    letter-spacing: clamp(3px, 0.5vw, 6px);
+    color: var(--dusty-gold);
+    font-weight: 500;
+    margin-bottom: clamp(16px, 2.5vw, 32px);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .card-a .title {
+    font-family: 'Lora', serif;
+    font-size: clamp(28px, 4.5vw, 56px);
+    font-weight: 600;
+    color: var(--cream);
+    text-align: center;
+    line-height: 1.15;
+    padding: 0 10%;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.15s forwards;
+  }
+  .card-a .rule {
+    width: clamp(40px, 5vw, 64px);
+    height: 2px;
+    background: var(--gold);
+    margin-top: clamp(20px, 3vw, 36px);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+
+  /* === DIRECTION B: ARCHIVAL CARTOGRAPHIC === */
+  .card-b {
+    background: #171C24;
+    display: flex;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-b::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(184,151,58,0.03) 39px, rgba(184,151,58,0.03) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(184,151,58,0.03) 39px, rgba(184,151,58,0.03) 40px);
+    opacity: 0.6;
+  }
+  .card-b::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 30% 60%, rgba(184,151,58,0.06) 0%, transparent 50%);
+  }
+  .card-b .left-panel {
+    position: relative;
+    z-index: 2;
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 8%;
+  }
+  .card-b .chapter-label {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(9px, 0.9vw, 11px);
+    text-transform: uppercase;
+    letter-spacing: clamp(3px, 0.6vw, 8px);
+    color: rgba(184,151,58,0.5);
+    font-weight: 500;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: slideRight 0.7s ease 0.1s forwards;
+  }
+  .card-b .title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(24px, 3.8vw, 48px);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.1;
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: slideRight 0.7s ease 0.25s forwards;
+  }
+  .card-b .accent-line {
+    width: clamp(50px, 8vw, 100px);
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin-top: 20px;
+    opacity: 0;
+    animation: slideRight 0.7s ease 0.4s forwards;
+  }
+  .card-b .right-panel {
+    position: relative;
+    z-index: 2;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 0 6% 8% 0;
+  }
+  .card-b .chapter-number-large {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(80px, 14vw, 180px);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(184,151,58,0.12);
+    line-height: 0.85;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 0.1s forwards;
+  }
+  .card-b .coord-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(8px, 0.7vw, 10px);
+    color: rgba(184,151,58,0.25);
+    letter-spacing: 2px;
+    margin-top: 12px;
+    text-align: right;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.6s forwards;
+  }
+  /* Decorative corner marks */
+  .card-b .corner-mark {
+    position: absolute;
+    z-index: 3;
+    width: clamp(16px, 2vw, 24px);
+    height: clamp(16px, 2vw, 24px);
+    opacity: 0;
+    animation: fadeIn 0.8s ease 0.5s forwards;
+  }
+  .card-b .corner-mark.tl { top: 5%; left: 4%; border-top: 1px solid rgba(184,151,58,0.2); border-left: 1px solid rgba(184,151,58,0.2); }
+  .card-b .corner-mark.tr { top: 5%; right: 4%; border-top: 1px solid rgba(184,151,58,0.2); border-right: 1px solid rgba(184,151,58,0.2); }
+  .card-b .corner-mark.bl { bottom: 5%; left: 4%; border-bottom: 1px solid rgba(184,151,58,0.2); border-left: 1px solid rgba(184,151,58,0.2); }
+  .card-b .corner-mark.br { bottom: 5%; right: 4%; border-bottom: 1px solid rgba(184,151,58,0.2); border-right: 1px solid rgba(184,151,58,0.2); }
+
+  /* === DIRECTION C: CINEMATIC FIELD === */
+  .card-c {
+    background: #111419;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    padding: 0 0 10% 7%;
+  }
+  .card-c::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      linear-gradient(180deg,
+        rgba(17,20,25,0.3) 0%,
+        rgba(17,20,25,0.0) 30%,
+        rgba(17,20,25,0.0) 50%,
+        rgba(17,20,25,0.6) 80%,
+        rgba(17,20,25,0.95) 100%
+      );
+    z-index: 1;
+  }
+  /* Simulated film grain */
+  .card-c .grain {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.04;
+    z-index: 2;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+  }
+  /* Cinematic letterbox bars */
+  .card-c .letterbox-top,
+  .card-c .letterbox-bottom {
+    position: absolute;
+    left: 0; right: 0;
+    height: 6%;
+    background: #000;
+    z-index: 3;
+  }
+  .card-c .letterbox-top { top: 0; }
+  .card-c .letterbox-bottom { bottom: 0; }
+
+  .card-c .content {
+    position: relative;
+    z-index: 4;
+  }
+  .card-c .chapter-marker {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(10px, 1vw, 13px);
+    color: var(--dusty-gold);
+    letter-spacing: clamp(2px, 0.4vw, 5px);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.2s forwards;
+  }
+  .card-c .title {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.1;
+    max-width: 70%;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.35s forwards;
+  }
+  .card-c .underline {
+    width: clamp(30px, 4vw, 48px);
+    height: 1px;
+    background: var(--warm-gold);
+    margin-top: clamp(16px, 2vw, 24px);
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.5s forwards;
+  }
+  /* Subtle warm glow behind text area */
+  .card-c .warm-glow {
+    position: absolute;
+    bottom: 5%;
+    left: 0;
+    width: 60%;
+    height: 40%;
+    background: radial-gradient(ellipse at 20% 80%, rgba(184,151,58,0.04) 0%, transparent 60%);
+    z-index: 0;
+  }
+
+  /* === ANIMATIONS === */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideRight {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* === NOTES SECTION === */
+  .design-notes {
+    background: rgba(26,35,50,0.3);
+    border: 1px solid rgba(184,151,58,0.08);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-top: 12px;
+  }
+  .design-notes h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--dusty-gold);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .design-notes p {
+    font-size: 13px;
+    color: var(--parchment);
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+  .design-notes p:last-child { margin-bottom: 0; }
+  .design-notes strong { color: var(--cream); font-weight: 500; }
+
+  .tradeoffs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .tradeoff-col h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .tradeoff-col.pros h4 { color: var(--sage); }
+  .tradeoff-col.cons h4 { color: var(--war-red); }
+  .tradeoff-col ul {
+    list-style: none;
+    padding: 0;
+  }
+  .tradeoff-col li {
+    font-size: 12px;
+    color: var(--parchment);
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .tradeoff-col.pros li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    color: var(--sage);
+    font-weight: 600;
+  }
+  .tradeoff-col.cons li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--war-red);
+    font-weight: 600;
+  }
+
+  /* === COMPARISON STRIP === */
+  .comparison-section {
+    padding: 60px 48px 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(184,151,58,0.08);
+  }
+  .comparison-section h2 {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+  .comparison-section .subtitle {
+    font-size: 13px;
+    color: var(--warm-gray);
+    margin-bottom: 32px;
+  }
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .comparison-card {
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(184,151,58,0.08);
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  .comparison-card:hover {
+    border-color: rgba(184,151,58,0.25);
+  }
+  .comparison-card .mini-preview {
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+  }
+  .comparison-card .card-label {
+    padding: 12px 16px;
+    background: rgba(26,35,50,0.4);
+  }
+  .comparison-card .card-label h4 {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 2px;
+  }
+  .comparison-card .card-label span {
+    font-size: 11px;
+    color: var(--warm-gray);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .direction-intro { grid-template-columns: 1fr; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .tradeoffs { grid-template-columns: 1fr; }
+    .page-header, .direction-nav, .direction-section, .comparison-section { padding-left: 24px; padding-right: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="subtitle">Turn-Based Tyranny — Episode 1 Graphics</div>
+  <h1>Chapter Title Cards: Design Directions</h1>
+  <p>Three approaches for the cards that open each chapter. All 12 chapters are previewable within each direction. These define the visual tone for the entire series, so pick the one that feels most like the show.</p>
+</div>
+
+<nav class="direction-nav">
+  <button class="active" onclick="showDirection('a')">A — Editorial Minimalist</button>
+  <button onclick="showDirection('b')">B — Archival Cartographic</button>
+  <button onclick="showDirection('c')">C — Cinematic Field</button>
+</nav>
+
+<!-- ==================== DIRECTION A ==================== -->
+<section id="dir-a" class="direction-section active">
+  <div class="direction-intro">
+    <div>
+      <h2>Direction A: Editorial Minimalist</h2>
+      <div class="tagline">The Ken Burns approach taken literally.</div>
+      <div class="desc">
+        <p>Centered type on a dark field. Nothing else. The title does all the work, and the restraint signals confidence. This is the direction already sketched in the existing style mockups, refined here with tighter animation timing and considered negative space.</p>
+        <p>The logic: if you're making a documentary about a strategy game, the most powerful visual statement is to step away from the game entirely. The card says "this is serious" and then the gameplay footage returns with more impact because of the contrast.</p>
+        <p>This direction is the easiest to produce (static PNG export or a simple Fusion comp) and the hardest to get wrong. The risk is that it reads as too plain or too "PowerPoint" if the typography isn't dialed in exactly right.</p>
+      </div>
+    </div>
+    <div class="spec-box">
+      <h3>Specifications</h3>
+      <div class="spec-row"><span class="spec-label">Title Font</span><span class="spec-value">Lora SemiBold</span></div>
+      <div class="spec-row"><span class="spec-label">Label Font</span><span class="spec-value">Poppins Medium</span></div>
+      <div class="spec-row"><span class="spec-label">Background</span><span class="spec-value">#1A2332 solid</span></div>
+      <div class="spec-row"><span class="spec-label">Accent</span><span class="spec-value">Gold rule, 64px</span></div>
+      <div class="spec-row"><span class="spec-label">Animation</span><span class="spec-value">Fade up, staggered</span></div>
+      <div class="spec-row"><span class="spec-label">Duration</span><span class="spec-value">~3s (0.8 in, 1.5 hold, 0.7 out)</span></div>
+      <div class="spec-row"><span class="spec-label">Complexity</span><span class="spec-value">Low — static or simple comp</span></div>
+      <div class="spec-row"><span class="spec-label">Consistency</span><span class="spec-value">Near-identical across all 12</span></div>
+    </div>
+  </div>
+
+  <div class="chapter-selector" id="sel-a"></div>
+
+  <div class="preview-frame">
+    <div class="preview-label">1920 × 1080 Preview</div>
+    <div class="card-a" id="preview-a">
+      <div class="chapter-num" id="a-num">Chapter One</div>
+      <div class="title" id="a-title">Opening Moves</div>
+      <div class="rule"></div>
+    </div>
+  </div>
+
+  <div class="design-notes">
+    <h3>Design Notes</h3>
+    <p><strong>Typography hierarchy:</strong> The chapter number label in Poppins uppercase reads as a structural marker ("you are here"), while the title in Lora serif carries the emotional weight. The size gap between them is intentional; the label is small enough to feel like metadata.</p>
+    <p><strong>The gold rule:</strong> 64px wide, 2px tall. It's the only decorative element, and its restraint mirrors the show's approach to humor: dry delivery, sharp punchline. The rule is the visual equivalent of a beat before the next scene.</p>
+    <p><strong>Why centered:</strong> Centering signals authority. Left-aligned would feel like a slide deck. Centered with generous vertical space above and below reads as a title card in a documentary or a chapter page in a book.</p>
+    <div class="tradeoffs">
+      <div class="tradeoff-col pros">
+        <h4>Strengths</h4>
+        <ul>
+          <li>Maximum readability and clarity</li>
+          <li>Timeless. Won't look dated in 2 years</li>
+          <li>Dead simple to produce: Fusion text node or even a PNG</li>
+          <li>Consistent with existing style mockup direction</li>
+          <li>Works identically for short and long titles</li>
+        </ul>
+      </div>
+      <div class="tradeoff-col cons">
+        <h4>Risks</h4>
+        <ul>
+          <li>Could feel too plain for YouTube, where thumbnails compete for attention</li>
+          <li>No visual variety chapter to chapter (same card, different words)</li>
+          <li>Relies entirely on font quality; any rendering issues are exposed</li>
+          <li>May not differentiate the series visually from other documentary channels</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DIRECTION B ==================== -->
+<section id="dir-b" class="direction-section">
+  <div class="direction-intro">
+    <div>
+      <h2>Direction B: Archival Cartographic</h2>
+      <div class="tagline">Military briefing meets antique atlas.</div>
+      <div class="desc">
+        <p>Left-aligned title against a faint grid field, with an oversized ghosted chapter number in the background. Corner registration marks and coordinate-style metadata give the card a sense of place, as though each chapter is a location on a map you're zooming into.</p>
+        <p>The logic: Civilization is fundamentally a game about maps and territory. This direction leans into that cartographic DNA without using any actual game imagery. The grid, the corner marks, and the coordinates create a "war room" atmosphere that fits chapters about military conflict (Ch 3, Ch 4) and also works for economic or diplomatic chapters because the framing is analytical, not aggressive.</p>
+        <p>Uses Cinzel, a typeface designed as a modern interpretation of Roman inscriptions. It carries more weight and gravitas than Lora, which shifts the cards from "editorial" to "monumental."</p>
+      </div>
+    </div>
+    <div class="spec-box">
+      <h3>Specifications</h3>
+      <div class="spec-row"><span class="spec-label">Title Font</span><span class="spec-value">Cinzel Bold</span></div>
+      <div class="spec-row"><span class="spec-label">Label Font</span><span class="spec-value">Cinzel Regular</span></div>
+      <div class="spec-row"><span class="spec-label">Metadata Font</span><span class="spec-value">DM Sans Light</span></div>
+      <div class="spec-row"><span class="spec-label">Background</span><span class="spec-value">#171C24 + grid overlay</span></div>
+      <div class="spec-row"><span class="spec-label">Accent</span><span class="spec-value">Gradient gold line + ghost number</span></div>
+      <div class="spec-row"><span class="spec-label">Animation</span><span class="spec-value">Slide right (title), fade (number)</span></div>
+      <div class="spec-row"><span class="spec-label">Duration</span><span class="spec-value">~3.5s (0.7 in, 2 hold, 0.8 out)</span></div>
+      <div class="spec-row"><span class="spec-label">Complexity</span><span class="spec-value">Medium — layered comp</span></div>
+      <div class="spec-row"><span class="spec-label">Consistency</span><span class="spec-value">Template with number variation</span></div>
+    </div>
+  </div>
+
+  <div class="chapter-selector" id="sel-b"></div>
+
+  <div class="preview-frame">
+    <div class="preview-label">1920 × 1080 Preview</div>
+    <div class="card-b" id="preview-b">
+      <div class="corner-mark tl"></div>
+      <div class="corner-mark tr"></div>
+      <div class="corner-mark bl"></div>
+      <div class="corner-mark br"></div>
+      <div class="left-panel">
+        <div class="chapter-label" id="b-label">Chapter One</div>
+        <div class="title" id="b-title">Opening Moves</div>
+        <div class="accent-line"></div>
+      </div>
+      <div class="right-panel">
+        <div class="chapter-number-large" id="b-number">01</div>
+        <div class="coord-text" id="b-coord">CH 01 · GAME 1 · ANTIQUITY</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="design-notes">
+    <h3>Design Notes</h3>
+    <p><strong>Asymmetric layout:</strong> Title left, ghost number right. The asymmetry creates visual tension and makes the card feel composed rather than generated. Left alignment also gives the title room to breathe on longer names without centering compression.</p>
+    <p><strong>The ghost number:</strong> Oversized, stroked, barely visible. It gives the eye something to find, a layer of depth that rewards a second look. At 180px with a 1px stroke at 12% opacity, it reads as texture more than text.</p>
+    <p><strong>Corner marks:</strong> Registration marks from print production. They frame the composition and subtly say "this was designed with intention." The effect is more felt than noticed.</p>
+    <p><strong>Coordinate line:</strong> "CH 01 · GAME 1 · ANTIQUITY" reads like metadata on a military document. This is the one element that changes per chapter and adds information density without clutter.</p>
+    <div class="tradeoffs">
+      <div class="tradeoff-col pros">
+        <h4>Strengths</h4>
+        <ul>
+          <li>More visually distinctive than centered text; stands out on YouTube</li>
+          <li>The map/grid motif connects to Civ's core identity without showing the game</li>
+          <li>Ghost numbers add subtle variety chapter to chapter</li>
+          <li>Cinzel carries more gravitas than Lora; feels monumental</li>
+          <li>The coordinate metadata line can carry useful context</li>
+        </ul>
+      </div>
+      <div class="tradeoff-col cons">
+        <h4>Risks</h4>
+        <ul>
+          <li>More complex to produce; needs a proper Fusion comp or After Effects</li>
+          <li>Cinzel introduces a third typeface (alongside Lora + Poppins in other overlays)</li>
+          <li>The cartographic framing could feel heavy-handed over 12 chapters</li>
+          <li>Grid and corner marks might read as "UI design mockup" rather than documentary</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DIRECTION C ==================== -->
+<section id="dir-c" class="direction-section">
+  <div class="direction-intro">
+    <div>
+      <h2>Direction C: Cinematic Field</h2>
+      <div class="tagline">The last frame before the lights come up.</div>
+      <div class="desc">
+        <p>Title positioned in the lower third of the frame, left-aligned, in italic serif. Cinematic letterbox bars top and bottom. Film grain texture. The card looks like the title card of an indie documentary or a prestige TV episode title.</p>
+        <p>The logic: this direction borrows the visual language of cinema rather than print or cartography. The letterbox bars signal "this is a film, not a slideshow." The italic EB Garamond carries elegance and movement (italic literally means "leaning forward"). Positioning the title low and left creates a composition that feels like a camera has settled on a scene, with the title appearing in the empty space.</p>
+        <p>The warm glow behind the text area and the grain texture add atmosphere without adding information. This is the most emotionally evocative of the three directions, and the one that takes the biggest risk by treating a Civ video like art cinema.</p>
+      </div>
+    </div>
+    <div class="spec-box">
+      <h3>Specifications</h3>
+      <div class="spec-row"><span class="spec-label">Title Font</span><span class="spec-value">EB Garamond Italic</span></div>
+      <div class="spec-row"><span class="spec-label">Label Font</span><span class="spec-value">EB Garamond Regular</span></div>
+      <div class="spec-row"><span class="spec-label">Background</span><span class="spec-value">#111419 + grain + glow</span></div>
+      <div class="spec-row"><span class="spec-label">Accent</span><span class="spec-value">Thin gold line, 48px</span></div>
+      <div class="spec-row"><span class="spec-label">Framing</span><span class="spec-value">2.35:1 letterbox bars</span></div>
+      <div class="spec-row"><span class="spec-label">Animation</span><span class="spec-value">Slow fade up, minimal</span></div>
+      <div class="spec-row"><span class="spec-label">Duration</span><span class="spec-value">~4s (0.9 in, 2.2 hold, 0.9 out)</span></div>
+      <div class="spec-row"><span class="spec-label">Complexity</span><span class="spec-value">Low-Medium — grain overlay + comp</span></div>
+      <div class="spec-row"><span class="spec-label">Consistency</span><span class="spec-value">Identical template, title changes only</span></div>
+    </div>
+  </div>
+
+  <div class="chapter-selector" id="sel-c"></div>
+
+  <div class="preview-frame">
+    <div class="preview-label">1920 × 1080 Preview</div>
+    <div class="card-c" id="preview-c">
+      <div class="letterbox-top"></div>
+      <div class="letterbox-bottom"></div>
+      <div class="grain"></div>
+      <div class="warm-glow"></div>
+      <div class="content">
+        <div class="chapter-marker" id="c-marker">Chapter One</div>
+        <div class="title" id="c-title">Opening Moves</div>
+        <div class="underline"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="design-notes">
+    <h3>Design Notes</h3>
+    <p><strong>Lower-third positioning:</strong> Most title cards center their text. Putting it bottom-left creates a composition that feels like a documentary title superimposed over a scene. Even though there's no scene here (just darkness), the positioning carries that implication. It also visually rhymes with the lower third overlays used for leader names.</p>
+    <p><strong>Italic serif:</strong> EB Garamond Italic is one of the most beautiful screen typefaces available. The italic form adds movement and elegance that upright text can't match. "Nothing Lasts Forever" in this typeface is going to hit differently than in Lora SemiBold.</p>
+    <p><strong>Letterbox bars:</strong> 2.35:1 aspect ratio framing within the 16:9 frame. This is a pure cinema signifier. It says "what you're watching is crafted, not captured." The bars also compress the vertical space in a way that makes the composition feel more intentional.</p>
+    <p><strong>Film grain:</strong> A subtle SVG noise texture at 4% opacity. It's felt, not seen. It adds organic texture to what would otherwise be a digital void, and it connects to the documentary film tradition the show references.</p>
+    <div class="tradeoffs">
+      <div class="tradeoff-col pros">
+        <h4>Strengths</h4>
+        <ul>
+          <li>The most emotionally resonant of the three; "Nothing Lasts Forever" will land hard</li>
+          <li>Letterbox bars are an instant visual differentiator from other gaming channels</li>
+          <li>Film grain adds warmth and texture; feels handmade</li>
+          <li>EB Garamond Italic is genuinely beautiful at display sizes</li>
+          <li>Low-left positioning creates sophisticated compositional tension</li>
+        </ul>
+      </div>
+      <div class="tradeoff-col cons">
+        <h4>Risks</h4>
+        <ul>
+          <li>Could feel pretentious for a Civ video; "are we taking this too seriously?"</li>
+          <li>Italic titles are harder to read at small sizes (mobile viewers)</li>
+          <li>EB Garamond is a different typeface family from Lora; type system grows to 3+</li>
+          <li>The cinematic framing might set expectations the gameplay footage can't match</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== COMPARISON ==================== -->
+<section class="comparison-section">
+  <h2>Side by Side: "Nothing Lasts Forever"</h2>
+  <p class="subtitle">Chapter 12 in all three directions. Click any card to jump to that direction.</p>
+  <div class="comparison-grid">
+    <div class="comparison-card" onclick="showDirection('a'); scrollToTop();">
+      <div class="mini-preview">
+        <div class="card-a" style="pointer-events:none;">
+          <div class="chapter-num" style="animation:none;opacity:1;">Chapter Twelve</div>
+          <div class="title" style="animation:none;opacity:1;font-size:clamp(18px,3vw,36px);">Nothing Lasts Forever</div>
+          <div class="rule" style="animation:none;opacity:1;"></div>
+        </div>
+      </div>
+      <div class="card-label"><h4>A — Editorial Minimalist</h4><span>Centered, restrained, confident</span></div>
+    </div>
+    <div class="comparison-card" onclick="showDirection('b'); scrollToTop();">
+      <div class="mini-preview">
+        <div class="card-b" style="pointer-events:none;">
+          <div class="corner-mark tl" style="animation:none;opacity:1;"></div>
+          <div class="corner-mark tr" style="animation:none;opacity:1;"></div>
+          <div class="corner-mark bl" style="animation:none;opacity:1;"></div>
+          <div class="corner-mark br" style="animation:none;opacity:1;"></div>
+          <div class="left-panel">
+            <div class="chapter-label" style="animation:none;opacity:1;font-size:clamp(7px,0.7vw,9px);">Chapter Twelve</div>
+            <div class="title" style="animation:none;opacity:1;font-size:clamp(16px,2.5vw,32px);">Nothing Lasts Forever</div>
+            <div class="accent-line" style="animation:none;opacity:1;"></div>
+          </div>
+          <div class="right-panel">
+            <div class="chapter-number-large" style="animation:none;opacity:1;font-size:clamp(50px,9vw,120px);">12</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-label"><h4>B — Archival Cartographic</h4><span>Asymmetric, layered, strategic</span></div>
+    </div>
+    <div class="comparison-card" onclick="showDirection('c'); scrollToTop();">
+      <div class="mini-preview">
+        <div class="card-c" style="pointer-events:none;padding-bottom:12%;">
+          <div class="letterbox-top"></div>
+          <div class="letterbox-bottom"></div>
+          <div class="grain"></div>
+          <div class="warm-glow"></div>
+          <div class="content">
+            <div class="chapter-marker" style="animation:none;opacity:1;font-size:clamp(7px,0.7vw,9px);">Chapter Twelve</div>
+            <div class="title" style="animation:none;opacity:1;font-size:clamp(20px,3.2vw,42px);">Nothing Lasts Forever</div>
+            <div class="underline" style="animation:none;opacity:1;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-label"><h4>C — Cinematic Field</h4><span>Italic, atmospheric, emotional</span></div>
+    </div>
+  </div>
+</section>
+
+<script>
+const chapters = [
+  { num: 1, word: 'One', title: 'Opening Moves', era: 'ANTIQUITY' },
+  { num: 2, word: 'Two', title: 'The Neighbor Problem', era: 'ANTIQUITY' },
+  { num: 3, word: 'Three', title: 'The Greek-Roman War', era: 'ANTIQUITY' },
+  { num: 4, word: 'Four', title: 'A Bloody Affair', era: 'ANTIQUITY' },
+  { num: 5, word: 'Five', title: 'Economic Ruin', era: 'ANTIQUITY' },
+  { num: 6, word: 'Six', title: 'Reconciliation', era: 'ANTIQUITY' },
+  { num: 7, word: 'Seven', title: 'The Transition', era: 'EXPLORATION' },
+  { num: 8, word: 'Eight', title: 'Neverendingism', era: 'EXPLORATION' },
+  { num: 9, word: 'Nine', title: 'The Science Trap', era: 'EXPLORATION' },
+  { num: 10, word: 'Ten', title: 'Paha Sapa and the Lakota', era: 'EXPLORATION' },
+  { num: 11, word: 'Eleven', title: 'The Final Push', era: 'MODERN' },
+  { num: 12, word: 'Twelve', title: 'Nothing Lasts Forever', era: 'MODERN' },
+];
+
+function buildSelectors() {
+  ['a','b','c'].forEach(dir => {
+    const sel = document.getElementById(`sel-${dir}`);
+    chapters.forEach((ch, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'chapter-btn' + (i === 0 ? ' active' : '');
+      btn.textContent = `Ch ${ch.num}`;
+      btn.onclick = () => selectChapter(dir, i);
+      sel.appendChild(btn);
+    });
+  });
+}
+
+function selectChapter(dir, idx) {
+  const ch = chapters[idx];
+  const sel = document.getElementById(`sel-${dir}`);
+  sel.querySelectorAll('.chapter-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === idx);
+  });
+
+  const numStr = String(ch.num).padStart(2, '0');
+
+  if (dir === 'a') {
+    const card = document.getElementById('preview-a');
+    // Re-trigger animations by cloning
+    const newCard = card.cloneNode(false);
+    newCard.innerHTML = `
+      <div class="chapter-num">Chapter ${ch.word}</div>
+      <div class="title">${ch.title}</div>
+      <div class="rule"></div>
+    `;
+    card.parentNode.replaceChild(newCard, card);
+    newCard.id = 'preview-a';
+  }
+
+  if (dir === 'b') {
+    const card = document.getElementById('preview-b');
+    const newCard = card.cloneNode(false);
+    newCard.innerHTML = `
+      <div class="corner-mark tl"></div>
+      <div class="corner-mark tr"></div>
+      <div class="corner-mark bl"></div>
+      <div class="corner-mark br"></div>
+      <div class="left-panel">
+        <div class="chapter-label">Chapter ${ch.word}</div>
+        <div class="title">${ch.title}</div>
+        <div class="accent-line"></div>
+      </div>
+      <div class="right-panel">
+        <div class="chapter-number-large">${numStr}</div>
+        <div class="coord-text">CH ${numStr} · GAME 1 · ${ch.era}</div>
+      </div>
+    `;
+    card.parentNode.replaceChild(newCard, card);
+    newCard.id = 'preview-b';
+  }
+
+  if (dir === 'c') {
+    const card = document.getElementById('preview-c');
+    const newCard = card.cloneNode(false);
+    newCard.innerHTML = `
+      <div class="letterbox-top"></div>
+      <div class="letterbox-bottom"></div>
+      <div class="grain"></div>
+      <div class="warm-glow"></div>
+      <div class="content">
+        <div class="chapter-marker">Chapter ${ch.word}</div>
+        <div class="title">${ch.title}</div>
+        <div class="underline"></div>
+      </div>
+    `;
+    card.parentNode.replaceChild(newCard, card);
+    newCard.id = 'preview-c';
+  }
+}
+
+function showDirection(dir) {
+  document.querySelectorAll('.direction-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.direction-nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(`dir-${dir}`).classList.add('active');
+  document.querySelectorAll('.direction-nav button').forEach(b => {
+    if (b.textContent.toLowerCase().startsWith(dir)) b.classList.add('active');
+  });
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+buildSelectors();
+</script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TBT Timestamp Notation — Quick Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #f5f0e8;
+    --ink: #1a1a1a;
+    --rust: #a0522d;
+    --gold: #c5943a;
+    --slate: #4a5568;
+    --faded: #8b7e6a;
+    --highlight: #fff8dc;
+    --code-bg: #2d2a24;
+    --code-fg: #e8dcc8;
+    --border: #d4c9b5;
+    --green: #5a7a3a;
+    --red: #8b3a3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; max-width: 100%; }
+    .no-print { display: none; }
+  }
+
+  body {
+    background: #3d3830;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    line-height: 1.5;
+    padding: 2rem;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--parchment);
+    padding: 3rem 3.5rem;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--rust), var(--gold), var(--rust));
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border);
+    position: relative;
+  }
+
+  .header::after {
+    content: '⚔';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--parchment);
+    padding: 0 1rem;
+    font-size: 1.2rem;
+    color: var(--gold);
+  }
+
+  .show-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--rust);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    color: var(--faded);
+    margin-top: 0.4rem;
+    font-style: italic;
+  }
+
+  /* Cheat Sheet Table */
+  .cheat-sheet {
+    margin: 1.5rem 0;
+    border: 2px solid var(--rust);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .cheat-sheet-header {
+    background: var(--rust);
+    color: var(--parchment);
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .cheat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.82rem;
+  }
+
+  .cheat-row:last-child { border-bottom: none; }
+
+  .cheat-row.head {
+    background: rgba(160,82,45,0.08);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--slate);
+  }
+
+  .cheat-row > div {
+    padding: 0.55rem 0.8rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .cheat-row > div:last-child { border-right: none; }
+
+  .cheat-row:not(.head):nth-child(odd) {
+    background: rgba(197,148,58,0.06);
+  }
+
+  code, .code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  /* Sections */
+  .section {
+    margin-top: 1.8rem;
+  }
+
+  h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1rem;
+    color: var(--rust);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h2 .num {
+    display: inline-block;
+    background: var(--rust);
+    color: var(--parchment);
+    width: 1.5rem;
+    height: 1.5rem;
+    text-align: center;
+    line-height: 1.5rem;
+    border-radius: 50%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+  }
+
+  .notation-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 0.8rem 0;
+  }
+
+  .notation-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.8rem 1rem;
+    position: relative;
+  }
+
+  .notation-card .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--faded);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+
+  .notation-card .example {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .notation-card .result {
+    font-size: 0.78rem;
+    color: var(--slate);
+    font-style: italic;
+  }
+
+  .notation-card .tag {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+  }
+
+  .tag-default { background: var(--highlight); color: var(--gold); border: 1px solid var(--gold); }
+  .tag-exact { background: #e8f5e9; color: var(--green); border: 1px solid var(--green); }
+  .tag-img { background: #fce4ec; color: var(--red); border: 1px solid var(--red); }
+  .tag-duration { background: #e3f2fd; color: #2c5282; border: 1px solid #2c5282; }
+
+  /* Callout box */
+  .callout {
+    background: var(--highlight);
+    border-left: 4px solid var(--gold);
+    padding: 0.8rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.82rem;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .callout strong {
+    color: var(--rust);
+  }
+
+  /* Before/After */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin: 0.8rem 0;
+    font-size: 0.8rem;
+  }
+
+  .compare-box {
+    padding: 0.6rem 0.8rem;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+
+  .compare-before {
+    background: #fef2f2;
+    border-color: #e8c4c4;
+  }
+
+  .compare-after {
+    background: #f0fdf4;
+    border-color: #b8d4b8;
+  }
+
+  .compare-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.3rem;
+  }
+
+  .compare-before .compare-label { color: var(--red); }
+  .compare-after .compare-label { color: var(--green); }
+
+  p { font-size: 0.85rem; margin: 0.4rem 0; color: var(--slate); }
+
+  /* Footer */
+  .footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--border);
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--faded);
+    font-style: italic;
+  }
+
+  /* Time format mini-table */
+  .time-formats {
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+    gap: 0.2rem 1.2rem;
+    margin: 0.5rem 0;
+    font-size: 0.82rem;
+  }
+
+  .time-formats .tf-head {
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--faded);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.2rem;
+  }
+
+  .summary-list {
+    list-style: none;
+    margin: 0.5rem 0;
+  }
+
+  .summary-list li {
+    padding: 0.3rem 0;
+    font-size: 0.82rem;
+    color: var(--slate);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .summary-list li::before {
+    position: absolute;
+    left: 0;
+    font-size: 0.9rem;
+  }
+
+  .summary-list li:nth-child(1)::before { content: '🎮'; }
+  .summary-list li:nth-child(2)::before { content: '📸'; }
+  .summary-list li:nth-child(3)::before { content: '🎯'; }
+  .summary-list li:nth-child(4)::before { content: '⏱'; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="show-title">Turn-Based Tyranny</div>
+    <h1>Timestamp Notation Guide</h1>
+    <div class="subtitle">What to write in your scripts so Seth's tools know what to extract</div>
+  </div>
+
+  <!-- CHEAT SHEET -->
+  <div class="cheat-sheet">
+    <div class="cheat-sheet-header">Quick Reference</div>
+    <div class="cheat-row head">
+      <div>You write</div>
+      <div>Seth gets</div>
+      <div>Use for</div>
+    </div>
+    <div class="cheat-row">
+      <div><code>[Tape 1 35:16]</code></div>
+      <div>30s clip (15s each side)</div>
+      <div>Most gameplay moments</div>
+    </div>
+    <div class="cheat-row">
+      <div><code>[Tape 2 06:54 -- 10:16]</code></div>
+      <div>Exact clip, start to end</div>
+      <div>When you know both times</div>
+    </div>
+    <div class="cheat-row">
+      <div><code>[Tape 1 27:20 IMG]</code></div>
+      <div>Screenshot + 5s hold</div>
+      <div>UI screens, menus, stats</div>
+    </div>
+    <div class="cheat-row">
+      <div><code>[Tape 2 28:40 SEC18]</code></div>
+      <div>18-second clip</div>
+      <div>Known short moments</div>
+    </div>
+    <div class="cheat-row">
+      <div><code>[Tape 1 37:09 MIN11]</code></div>
+      <div>11-minute clip</div>
+      <div>Long battles, sequences</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>The golden rule:</strong> When in doubt, just write <code>[Tape # time]</code> like you already do. The 30-second default works for most moments. Everything else is optional.
+  </div>
+
+  <!-- THE 4 TYPES -->
+  <div class="section">
+    <h2><span class="num">1</span> Bare Timestamp — your default</h2>
+    <p>Just a tape and a time. System grabs 30 seconds centered on that moment.</p>
+    <div class="notation-block">
+      <div class="notation-card">
+        <span class="tag tag-default">Default</span>
+        <div class="label">You write</div>
+        <div class="example">[Tape 1 04:00]</div>
+        <div class="result">→ Extracts 3:45 – 4:15 (meeting Charlemagne)</div>
+      </div>
+      <div class="notation-card">
+        <span class="tag tag-default">Default</span>
+        <div class="label">You write</div>
+        <div class="example">[Tape 1 21:55]</div>
+        <div class="result">→ Extracts 21:40 – 22:10 (settling Olympia)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">2</span> Exact Range — when you know start &amp; end</h2>
+    <p>Two dashes <code>--</code> separate start and end times. Use when you've rewatched the footage.</p>
+    <div class="notation-block">
+      <div class="notation-card">
+        <span class="tag tag-exact">Exact</span>
+        <div class="label">You write</div>
+        <div class="example">[Tape 2 06:54 -- 10:16]</div>
+        <div class="result">→ 3 min 22s of skirmishing</div>
+      </div>
+      <div class="notation-card">
+        <span class="tag tag-exact">Exact</span>
+        <div class="label">You write</div>
+        <div class="example">[Tape 3 50:47 -- 50:53]</div>
+        <div class="result">→ 6 seconds, infantry enters city</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">3</span> IMG — still image / screenshot</h2>
+    <p>Captures a single frame as a PNG image, plus a 5-second video hold.</p>
+    <div class="notation-block">
+      <div class="notation-card">
+        <span class="tag tag-img">Image</span>
+        <div class="label">You write</div>
+        <div class="example">[Tape 2 23:30 IMG]</div>
+        <div class="result">→ Rankings screen screenshot</div>
+      </div>
+      <div class="notation-card">
+        <span class="tag tag-img">Image</span>
+        <div class="label">You write</div>
+        <div class="example">[Tape 2 15:35 IMG]</div>
+        <div class="result">→ Level 20 General screenshot</div>
+      </div>
+    </div>
+    <p>Use for: diplomacy screens, stat displays, menus, any single-frame moment.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">4</span> SEC## / MIN## — specific duration</h2>
+    <p>Clip starts at your timestamp and runs for the specified length.</p>
+    <div class="notation-block">
+      <div class="notation-card">
+        <span class="tag tag-duration">Duration</span>
+        <div class="label">You write</div>
+        <div class="example">[Tape 3 33:45 SEC10]</div>
+        <div class="result">→ 10s of infantry highlighted on map</div>
+      </div>
+      <div class="notation-card">
+        <span class="tag tag-duration">Duration</span>
+        <div class="label">You write</div>
+        <div class="example">[Tape 1 37:09 MIN11]</div>
+        <div class="result">→ 11 minutes of full battle sequence</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEFORE/AFTER -->
+  <div class="section">
+    <h2>Before &amp; After — from your Game 1 script</h2>
+
+    <div class="compare">
+      <div class="compare-box compare-before">
+        <div class="compare-label">Before</div>
+        <code style="font-size:0.75rem">Charlemagne's attitude icon [Tape 1 27:20]</code>
+      </div>
+      <div class="compare-box compare-after">
+        <div class="compare-label">After</div>
+        <code style="font-size:0.75rem">Charlemagne's attitude icon [Tape 1 27:20 IMG]</code>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-box compare-before">
+        <div class="compare-label">Before</div>
+        <code style="font-size:0.75rem">Invasion [Tape 2 57:30]</code>
+      </div>
+      <div class="compare-box compare-after">
+        <div class="compare-label">After</div>
+        <code style="font-size:0.75rem">Invasion [Tape 2 57:30 SEC03]</code>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-box compare-before">
+        <div class="compare-label">Before</div>
+        <code style="font-size:0.75rem">More skirmishing [Tape 1 37:09]</code>
+      </div>
+      <div class="compare-box compare-after">
+        <div class="compare-label">After</div>
+        <code style="font-size:0.75rem">More skirmishing [Tape 1 37:09 MIN11]</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIME FORMAT + SUMMARY -->
+  <div class="section">
+    <h2>Time Format</h2>
+    <p>Both formats work. Use whichever feels natural.</p>
+    <div class="time-formats">
+      <div class="tf-head">Under 1 hour</div>
+      <div class="tf-head">Over 1 hour</div>
+      <div class="tf-head">Example</div>
+      <div><code>MM:SS</code></div>
+      <div><code>HH:MM:SS</code></div>
+      <div><code>35:16</code> or <code>01:04:09</code></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The Short Version</h2>
+    <ul class="summary-list">
+      <li><strong>Most moments</strong> — just write <code>[Tape # time]</code>. Done.</li>
+      <li><strong>Still images</strong> — add <code>IMG</code>. For screens, menus, stats.</li>
+      <li><strong>Exact clips</strong> — use <code>[Tape # start -- end]</code> if you know both times.</li>
+      <li><strong>Known length</strong> — use <code>SEC##</code> or <code>MIN##</code>. Better than guessing.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    Turn-Based Tyranny — Your Civilization Has Been Destroyed<br>
+    Updated February 13, 2026
+  </div>
+
+</div>
+</body>
+</html>

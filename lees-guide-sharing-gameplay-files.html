@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharing Your Gameplay Videos with Seth</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+Pro:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #2c2416;
+            background-color: #d4c5a9;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(139, 119, 85, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(101, 82, 51, 0.06) 0%, transparent 50%);
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            background: linear-gradient(170deg, #f5eed6 0%, #efe6cb 30%, #ece2c4 70%, #e8dbb8 100%);
+            padding: 3rem 3.5rem;
+            border-radius: 3px;
+            box-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.12),
+                0 4px 12px rgba(0, 0, 0, 0.08),
+                inset 0 0 80px rgba(139, 119, 85, 0.04);
+            border: 1px solid rgba(139, 119, 85, 0.2);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b7755, #a08b65, #8b7755);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(139, 119, 85, 0.3);
+        }
+
+        .header .series-label {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #8b7755;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #3d3121;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #7a6b52;
+            font-size: 1.05rem;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #3d3121;
+            margin-top: 2.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid rgba(139, 119, 85, 0.25);
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #4a3d2a;
+            margin-top: 1.5rem;
+            margin-bottom: 0.7rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-list > li {
+            position: relative;
+            padding-left: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-list > li::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 0.1rem;
+            width: 2rem;
+            height: 2rem;
+            background: linear-gradient(135deg, #8b7755, #7a6845);
+            color: #f5eed6;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .sub-steps {
+            list-style: none;
+            padding: 0;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub-steps li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.4rem;
+        }
+
+        .sub-steps li::before {
+            content: '›';
+            position: absolute;
+            left: 0.3rem;
+            color: #8b7755;
+            font-weight: 700;
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+
+        .callout {
+            background: rgba(139, 119, 85, 0.1);
+            border-left: 3px solid #8b7755;
+            padding: 1rem 1.2rem;
+            margin: 1.2rem 0;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .callout.tip {
+            background: rgba(76, 115, 60, 0.1);
+            border-left-color: #4c733c;
+        }
+
+        .callout.important {
+            background: rgba(160, 82, 45, 0.1);
+            border-left-color: #a0522d;
+        }
+
+        .callout-label {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .callout.tip .callout-label {
+            color: #4c733c;
+        }
+
+        .callout.important .callout-label {
+            color: #a0522d;
+        }
+
+        .file-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .file-table th {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #7a6b52;
+            text-align: left;
+            padding: 0.5rem 0.8rem;
+            border-bottom: 2px solid rgba(139, 119, 85, 0.3);
+        }
+
+        .file-table td {
+            padding: 0.5rem 0.8rem;
+            border-bottom: 1px solid rgba(139, 119, 85, 0.15);
+        }
+
+        .file-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background: rgba(139, 119, 85, 0.12);
+            padding: 0.15rem 0.4rem;
+            border-radius: 2px;
+            font-size: 0.9em;
+        }
+
+        strong {
+            font-weight: 700;
+            color: #3d3121;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 1px solid rgba(139, 119, 85, 0.25);
+            margin: 2rem 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(139, 119, 85, 0.3);
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            color: #8b7755;
+            letter-spacing: 0.05em;
+        }
+
+        .success-box {
+            background: rgba(76, 115, 60, 0.12);
+            border: 1px solid rgba(76, 115, 60, 0.3);
+            border-radius: 3px;
+            padding: 1.2rem 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .success-box .check {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="series-label">Turn-Based Tyranny &mdash; Guide for Lee</div>
+            <h1>Sharing Your Gameplay Videos with Seth</h1>
+            <div class="subtitle">How to upload your raw recordings to Google Drive</div>
+        </div>
+
+        <p>Seth needs your 4 gameplay recordings from Game 1 as actual video files. Google Drive preserves the original quality exactly as recorded, which is why we use it instead of YouTube for file transfer.</p>
+
+        <div class="callout tip">
+            <div class="callout-label">What you need</div>
+            Your 4 Civ VII gameplay recordings and a Google account. The whole process takes about 10 minutes of active work, plus upload time (which runs in the background).
+        </div>
+
+        <h2>Step 1: Find Your Recordings</h2>
+
+        <ol class="step-list">
+            <li data-step="1">Open the folder on your computer where your recording software saves videos.</li>
+            <li data-step="2">If you're not sure where that is:
+                <ul class="sub-steps">
+                    <li><strong>OBS:</strong> Open OBS, click <strong>Settings</strong>, click <strong>Output</strong>, look at <strong>Recording Path</strong></li>
+                    <li><strong>ShadowPlay / GeForce Experience:</strong> Open GeForce Experience, click the gear icon, click <strong>IN-GAME OVERLAY</strong>, click <strong>Settings</strong>, look for the save location</li>
+                    <li><strong>Still can't find them?</strong> Open File Explorer, type <code>*.mp4</code> in the search bar (top right), sort by Date, look for large files from when you recorded</li>
+                </ul>
+            </li>
+            <li data-step="3">You should have 4 video files. The sizes should be roughly:</li>
+        </ol>
+
+        <table class="file-table">
+            <thead>
+                <tr>
+                    <th>Tape</th>
+                    <th>Duration</th>
+                    <th>Expected Size</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tape 1 (first session)</td>
+                    <td>~1 hour</td>
+                    <td>3 &ndash; 6 GB</td>
+                </tr>
+                <tr>
+                    <td>Tape 2</td>
+                    <td>~2 hours</td>
+                    <td>6 &ndash; 12 GB</td>
+                </tr>
+                <tr>
+                    <td>Tape 3</td>
+                    <td>~2 hours</td>
+                    <td>6 &ndash; 12 GB</td>
+                </tr>
+                <tr>
+                    <td>Tape 4 (short one)</td>
+                    <td>~21 minutes</td>
+                    <td>1 &ndash; 2 GB</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr class="section-divider">
+
+        <h2>Step 2: Create a Folder in Google Drive</h2>
+
+        <ol class="step-list">
+            <li data-step="1">Open your web browser and go to <strong>drive.google.com</strong></li>
+            <li data-step="2">Click the <strong>+ New</strong> button in the top left corner</li>
+            <li data-step="3">Click <strong>New folder</strong></li>
+            <li data-step="4">Name it: <code>TBT Raw Gameplay</code></li>
+            <li data-step="5">Click <strong>Create</strong>, then double-click the new folder to open it</li>
+        </ol>
+
+        <hr class="section-divider">
+
+        <h2>Step 3: Upload the Files</h2>
+
+        <ol class="step-list">
+            <li data-step="1">Drag all 4 video files from your computer into the Google Drive browser window</li>
+            <li data-step="2">You'll see a progress bar in the bottom right corner</li>
+            <li data-step="3"><strong>Wait for all uploads to finish.</strong> This could take a few hours depending on your internet speed. Don't close the browser until every file says "Upload complete."</li>
+        </ol>
+
+        <div class="callout important">
+            <div class="callout-label">Important</div>
+            Keep the browser tab open while uploading. You can use other tabs and do other things on your computer. Just don't close the Drive tab or shut down your computer until it's done.
+        </div>
+
+        <hr class="section-divider">
+
+        <h2>Step 4: Share the Folder with Seth</h2>
+
+        <ol class="step-list">
+            <li data-step="1">Go back to your main Google Drive (click <strong>My Drive</strong> on the left)</li>
+            <li data-step="2">Right-click the <strong>TBT Raw Gameplay</strong> folder</li>
+            <li data-step="3">Click <strong>Share</strong></li>
+            <li data-step="4">Type Seth's email address</li>
+            <li data-step="5">Click <strong>Send</strong></li>
+        </ol>
+
+        <hr class="section-divider">
+
+        <h2>Step 5: Tell Seth Which Video Is Which</h2>
+
+        <p>Text or message Seth with a quick list so he knows which file is which tape. Something like:</p>
+
+        <div class="callout">
+            <em>"Here are the 4 files:<br><br>
+            <strong>[filename 1]</strong> &mdash; first recording session (~1 hour)<br>
+            <strong>[filename 2]</strong> &mdash; second session (~2 hours)<br>
+            <strong>[filename 3]</strong> &mdash; third session (~2 hours)<br>
+            <strong>[filename 4]</strong> &mdash; last session (~21 minutes, the short one)"</em>
+        </div>
+
+        <p>Replace <strong>[filename]</strong> with whatever your files are actually called. If you're not sure about the order, just list the filenames and how long each one is. Seth can figure it out from there.</p>
+
+        <div class="success-box">
+            <div class="check">&#10003;</div>
+            <strong>That's it!</strong><br>
+            Let Seth know once the uploads are done.
+        </div>
+
+        <div class="footer">
+            Turn-Based Tyranny &mdash; Your Civilization Has Been Destroyed<br>
+            Last updated: February 15, 2026
+        </div>
+    </div>
+</body>
+</html>

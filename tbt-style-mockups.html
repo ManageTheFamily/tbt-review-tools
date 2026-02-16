@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TBT — Visual Style Mockups</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --ivory: #EDE8DC;
+    --parchment: #D9D0C1;
+    --charcoal: #2C2C2C;
+    --deep-navy: #1A2332;
+    --muted-gold: #B8973A;
+    --warm-gold: #D4A843;
+    --accent-red: #8B3A3A;
+    --accent-red-light: #A84A4A;
+    --dusty-gold: #9E8A5C;
+    --sage: #5A6B52;
+    --steel: #4A5568;
+    --slate: #334155;
+    --warm-gray: #6B6560;
+    --bg-dark: #0F1318;
+    --bg-card: #161B22;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-dark);
+    color: var(--cream);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+  }
+
+  .page-header {
+    padding: 40px 60px 30px;
+    border-bottom: 1px solid rgba(184, 151, 58, 0.2);
+  }
+
+  .page-header h1 {
+    font-family: 'Lora', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: 0.5px;
+  }
+
+  .page-header p {
+    font-size: 14px;
+    color: var(--warm-gray);
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  .nav-bar {
+    display: flex;
+    gap: 4px;
+    padding: 16px 60px;
+    background: rgba(22, 27, 34, 0.8);
+    border-bottom: 1px solid rgba(184, 151, 58, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border: 1px solid rgba(184, 151, 58, 0.2);
+    background: transparent;
+    color: var(--warm-gray);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:hover { border-color: var(--muted-gold); color: var(--cream); }
+  .nav-btn.active {
+    background: rgba(184, 151, 58, 0.15);
+    border-color: var(--muted-gold);
+    color: var(--warm-gold);
+  }
+
+  .section {
+    display: none;
+    padding: 40px 60px 60px;
+  }
+
+  .section.active { display: block; }
+
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+    color: var(--warm-gray);
+    margin-bottom: 32px;
+    font-weight: 300;
+    max-width: 700px;
+    line-height: 1.7;
+  }
+
+  /* ===== PALETTE SECTION ===== */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .swatch {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .swatch-color {
+    height: 80px;
+    display: flex;
+    align-items: flex-end;
+    padding: 8px 12px;
+  }
+
+  .swatch-info {
+    padding: 10px 12px;
+    background: var(--bg-card);
+  }
+
+  .swatch-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--cream);
+  }
+
+  .swatch-hex {
+    font-size: 11px;
+    color: var(--warm-gray);
+    font-family: monospace;
+  }
+
+  .type-demo {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .type-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted-gold);
+    margin-bottom: 12px;
+  }
+
+  .type-sample-lora {
+    font-family: 'Lora', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .type-sample-poppins {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--parchment);
+  }
+
+  .type-specimen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 20px;
+  }
+
+  .specimen-item span {
+    display: block;
+    font-size: 11px;
+    color: var(--warm-gray);
+    margin-bottom: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===== MOCKUP VIEWPORT ===== */
+  .mockup-viewport {
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: #000;
+  }
+
+  .mockup-viewport img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+  }
+
+  .gameplay-sim {
+    width: 100%;
+    height: 100%;
+    background:
+      linear-gradient(135deg, #1a2a1a 0%, #0d1a2d 40%, #1a1a0d 70%, #0d1a1a 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .gameplay-sim::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(90, 107, 82, 0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 60%, rgba(26, 35, 50, 0.5) 0%, transparent 50%);
+  }
+
+  .gameplay-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: rgba(245, 240, 232, 0.25);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+    z-index: 1;
+  }
+
+  /* ===== CHAPTER TITLE CARD ===== */
+  .chapter-card-fullscreen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: chapterFadeIn 0.8s ease-out;
+  }
+
+  .chapter-card-bg {
+    position: absolute;
+    inset: 0;
+    background: var(--deep-navy);
+  }
+
+  .chapter-card-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(184, 151, 58, 0.06) 0%, transparent 70%);
+  }
+
+  .chapter-card-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 60px;
+  }
+
+  .chapter-number {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted-gold);
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+
+  .chapter-name {
+    font-family: 'Lora', serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+
+  .chapter-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--muted-gold);
+    margin: 20px auto 0;
+    opacity: 0.5;
+  }
+
+  @keyframes chapterFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* Chapter card variant selector */
+  .variant-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .variant-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: transparent;
+    color: var(--warm-gray);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .variant-btn:hover { border-color: var(--muted-gold); color: var(--cream); }
+  .variant-btn.active {
+    background: rgba(184, 151, 58, 0.15);
+    border-color: var(--muted-gold);
+    color: var(--warm-gold);
+  }
+
+  /* ===== LOWER THIRD ===== */
+  .lower-third {
+    position: absolute;
+    bottom: 12%;
+    left: 5%;
+    z-index: 10;
+    display: flex;
+    align-items: stretch;
+    animation: ltSlideIn 0.5s ease-out;
+  }
+
+  .lt-accent-bar {
+    width: 4px;
+    background: var(--muted-gold);
+    border-radius: 2px 0 0 2px;
+  }
+
+  .lt-body {
+    background: rgba(15, 19, 24, 0.88);
+    backdrop-filter: blur(12px);
+    padding: 12px 24px 12px 16px;
+    border: 1px solid rgba(184, 151, 58, 0.2);
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .lt-name {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  .lt-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted-gold);
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  @keyframes ltSlideIn {
+    0% { transform: translateX(-20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+
+  /* ===== DATA VIZ ===== */
+  .dataviz-panel {
+    position: absolute;
+    top: 8%;
+    right: 4%;
+    width: 38%;
+    z-index: 10;
+    background: rgba(15, 19, 24, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(184, 151, 58, 0.15);
+    border-radius: 8px;
+    padding: 20px 24px;
+    animation: dvFadeIn 0.6s ease-out;
+  }
+
+  .dv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+    border-bottom: 1px solid rgba(184, 151, 58, 0.15);
+    padding-bottom: 10px;
+  }
+
+  .dv-title {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cream);
+  }
+
+  .dv-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted-gold);
+    letter-spacing: 0.5px;
+  }
+
+  .dv-chart {
+    width: 100%;
+    height: 120px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .dv-bar-group {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 100%;
+    padding: 0 4px;
+    border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+  }
+
+  .dv-bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .dv-bar {
+    width: 70%;
+    max-width: 36px;
+    border-radius: 3px 3px 0 0;
+    transition: height 0.6s ease-out;
+  }
+
+  .dv-bar-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 9px;
+    color: var(--warm-gray);
+    text-align: center;
+    margin-top: 6px;
+  }
+
+  .dv-bar-value {
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--cream);
+  }
+
+  .dv-stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(245, 240, 232, 0.05);
+  }
+
+  .dv-stat-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    color: var(--warm-gray);
+  }
+
+  .dv-stat-value {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .dv-stat-value.negative { color: var(--accent-red-light); }
+  .dv-stat-value.positive { color: var(--sage); }
+  .dv-stat-value.neutral { color: var(--cream); }
+
+  /* Line chart variant */
+  .dv-line-chart {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .dv-line-chart svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  @keyframes dvFadeIn {
+    0% { opacity: 0; transform: translateY(-8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== COMEDY CAPTION ===== */
+  .comedy-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .comedy-image-area {
+    width: 55%;
+    height: 70%;
+    background: rgba(30, 30, 30, 0.6);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .comedy-placeholder {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.6;
+  }
+
+  .comedy-placeholder-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: rgba(245,240,232,0.3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .comedy-caption {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 19, 24, 0.92);
+    border: 1px solid rgba(184, 151, 58, 0.25);
+    border-radius: 6px;
+    padding: 10px 24px;
+    white-space: nowrap;
+  }
+
+  .comedy-caption-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--cream);
+    text-align: center;
+  }
+
+  /* Alt: white impact style */
+  .comedy-caption.impact {
+    background: none;
+    border: none;
+    bottom: 8%;
+  }
+
+  .comedy-caption.impact .comedy-caption-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow:
+      2px 2px 0 #000,
+      -2px -2px 0 #000,
+      2px -2px 0 #000,
+      -2px 2px 0 #000,
+      0 3px 6px rgba(0,0,0,0.5);
+    letter-spacing: 1px;
+  }
+
+  /* Alt: documentary subtitle style */
+  .comedy-caption.documentary {
+    background: rgba(15, 19, 24, 0.85);
+    border: none;
+    border-left: 3px solid var(--muted-gold);
+    border-radius: 0 4px 4px 0;
+    bottom: 10%;
+    padding: 8px 20px 8px 14px;
+  }
+
+  .comedy-caption.documentary .comedy-caption-text {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--cream);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  /* ===== SHOW LOGO ===== */
+  .logo-container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    background: var(--deep-navy);
+  }
+
+  .logo-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 45%, rgba(184, 151, 58, 0.08) 0%, transparent 60%);
+  }
+
+  .logo-main {
+    font-family: 'Lora', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.1;
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo-tyranny {
+    display: block;
+    font-size: 58px;
+    color: var(--warm-gold);
+    letter-spacing: 6px;
+  }
+
+  .logo-rule {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--muted-gold), transparent);
+    margin: 18px auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo-sub {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--parchment);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    opacity: 0.7;
+  }
+
+  /* ===== NOTES ===== */
+  .notes-box {
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-top: 20px;
+    border: 1px solid rgba(255,255,255,0.04);
+    max-width: 960px;
+  }
+
+  .notes-box h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .notes-box p {
+    font-size: 13px;
+    color: var(--warm-gray);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .notes-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .notes-box li {
+    font-size: 13px;
+    color: var(--warm-gray);
+    line-height: 1.7;
+    font-weight: 300;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .notes-box li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: var(--muted-gold);
+    font-weight: 700;
+  }
+
+  .side-by-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .side-by-side { grid-template-columns: 1fr; }
+    .page-header, .nav-bar, .section { padding-left: 24px; padding-right: 24px; }
+  }
+
+  .mockup-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--warm-gray);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Accent color variants for chapter cards */
+  .accent-war { --chapter-accent: var(--accent-red); }
+  .accent-economy { --chapter-accent: var(--dusty-gold); }
+  .accent-default { --chapter-accent: var(--muted-gold); }
+  .accent-sage { --chapter-accent: var(--sage); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Turn-Based Tyranny — Visual Style Mockups</h1>
+  <p>Proposed in-video graphic styles for Episode 1. Review each category and note what works, what doesn't, and what to adjust.</p>
+</div>
+
+<div class="nav-bar">
+  <button class="nav-btn active" onclick="showSection('palette')">Palette & Type</button>
+  <button class="nav-btn" onclick="showSection('chapter')">Chapter Cards</button>
+  <button class="nav-btn" onclick="showSection('lowerthird')">Lower Thirds</button>
+  <button class="nav-btn" onclick="showSection('dataviz')">Data Viz</button>
+  <button class="nav-btn" onclick="showSection('comedy')">Comedy Captions</button>
+  <button class="nav-btn" onclick="showSection('logo')">Show Logo</button>
+</div>
+
+<!-- ===== PALETTE & TYPOGRAPHY ===== -->
+<div class="section active" id="palette">
+  <div class="section-title">Color Palette</div>
+  <div class="section-subtitle">Muted documentary tones derived from aged map colors. Warm neutrals for backgrounds and text, gold for accents, with chapter-specific color coding for war (red), economy (dusty gold), diplomacy (sage).</div>
+
+  <div class="palette-grid">
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--deep-navy);"></div>
+      <div class="swatch-info"><div class="swatch-name">Deep Navy</div><div class="swatch-hex">#1A2332</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--charcoal);"></div>
+      <div class="swatch-info"><div class="swatch-name">Charcoal</div><div class="swatch-hex">#2C2C2C</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--cream);"></div>
+      <div class="swatch-info"><div class="swatch-name">Cream</div><div class="swatch-hex">#F5F0E8</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--ivory);"></div>
+      <div class="swatch-info"><div class="swatch-name">Ivory</div><div class="swatch-hex">#EDE8DC</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--parchment);"></div>
+      <div class="swatch-info"><div class="swatch-name">Parchment</div><div class="swatch-hex">#D9D0C1</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--muted-gold);"></div>
+      <div class="swatch-info"><div class="swatch-name">Muted Gold</div><div class="swatch-hex">#B8973A</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--warm-gold);"></div>
+      <div class="swatch-info"><div class="swatch-name">Warm Gold</div><div class="swatch-hex">#D4A843</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--accent-red);"></div>
+      <div class="swatch-info"><div class="swatch-name">War Red</div><div class="swatch-hex">#8B3A3A</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--dusty-gold);"></div>
+      <div class="swatch-info"><div class="swatch-name">Dusty Gold</div><div class="swatch-hex">#9E8A5C</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--sage);"></div>
+      <div class="swatch-info"><div class="swatch-name">Sage</div><div class="swatch-hex">#5A6B52</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--steel);"></div>
+      <div class="swatch-info"><div class="swatch-name">Steel</div><div class="swatch-hex">#4A5568</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--warm-gray);"></div>
+      <div class="swatch-info"><div class="swatch-name">Warm Gray</div><div class="swatch-hex">#6B6560</div></div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-bottom: 16px;">Typography</div>
+
+  <div class="type-demo">
+    <div class="type-label">Primary — Lora (Serif)</div>
+    <div class="type-sample-lora">The Greek-Roman War</div>
+    <div style="font-family: 'Lora', serif; font-size: 18px; color: var(--parchment); font-style: italic; margin-top: 8px;">"Nothing lasts forever — especially in Civilization."</div>
+    <div class="type-specimen">
+      <div class="specimen-item">
+        <span>Use for</span>
+        <div style="font-family: 'Lora', serif; font-size: 14px; color: var(--parchment);">Chapter titles, leader names, editorial callouts, quotes</div>
+      </div>
+      <div class="specimen-item">
+        <span>Weights</span>
+        <div style="font-family: 'Lora', serif; font-size: 14px; color: var(--parchment);">Regular 400, Medium 500, SemiBold 600, Bold 700</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="type-demo">
+    <div class="type-label">Secondary — Poppins (Sans-Serif)</div>
+    <div class="type-sample-poppins">Gold Reserves: -59 gold/turn</div>
+    <div style="font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--warm-gray); font-weight: 300; margin-top: 8px;">CHAPTER FIVE · TURN 142 · ANTIQUITY AGE</div>
+    <div class="type-specimen">
+      <div class="specimen-item">
+        <span>Use for</span>
+        <div style="font-family: 'Poppins', sans-serif; font-size: 14px; color: var(--parchment);">Stats, labels, captions, UI elements, body text</div>
+      </div>
+      <div class="specimen-item">
+        <span>Weights</span>
+        <div style="font-family: 'Poppins', sans-serif; font-size: 14px; color: var(--parchment);">Light 300, Regular 400, Medium 500, SemiBold 600</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-box">
+    <h4>Design Notes</h4>
+    <p>Lora carries the editorial authority for titles and names. Poppins handles all functional text: stats, labels, captions. The pairing creates a "documentary overlay on a game" feel rather than a "game UI" feel. The gold accent ties everything together without becoming dominant.</p>
+  </div>
+</div>
+
+<!-- ===== CHAPTER TITLE CARDS ===== -->
+<div class="section" id="chapter">
+  <div class="section-title">Chapter Title Cards</div>
+  <div class="section-subtitle">Full-screen cards shown for 2 to 3 seconds between chapters. These give the viewer a breathing point and signal narrative structure. Click through different chapters to see how the template handles varying title lengths and tonal accents.</div>
+
+  <div class="variant-controls" id="chapter-variants">
+    <button class="variant-btn active" onclick="showChapter(1)">Ch 1: Opening Moves</button>
+    <button class="variant-btn" onclick="showChapter(3)">Ch 3: War</button>
+    <button class="variant-btn" onclick="showChapter(5)">Ch 5: Economic Ruin</button>
+    <button class="variant-btn" onclick="showChapter(8)">Ch 8: Neverendingism</button>
+    <button class="variant-btn" onclick="showChapter(10)">Ch 10: Paha Sapa</button>
+    <button class="variant-btn" onclick="showChapter(12)">Ch 12: Nothing Lasts</button>
+  </div>
+
+  <div class="mockup-viewport" id="chapter-viewport">
+    <div class="chapter-card-fullscreen" id="chapter-card">
+      <div class="chapter-card-bg"></div>
+      <div class="chapter-card-content">
+        <div class="chapter-number">Chapter One</div>
+        <div class="chapter-name">Opening Moves</div>
+        <div class="chapter-rule"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-box">
+    <h4>Design Notes</h4>
+    <ul>
+      <li>Full-screen on deep navy, centered. Clean and deliberate. No game imagery visible during the card.</li>
+      <li>Gold horizontal rule below the title provides visual anchor without being loud.</li>
+      <li>Chapter number in Poppins uppercase with letter-spacing reads as a functional label, not decoration.</li>
+      <li>Title in Lora serif at display size. Even the longest title (Ch 10) fits comfortably at this scale.</li>
+      <li>Fade in over ~0.8s, hold 2s, fade out. No slide or zoom. Documentary pacing.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== LOWER THIRDS ===== -->
+<div class="section" id="lowerthird">
+  <div class="section-title">Lower Thirds</div>
+  <div class="section-subtitle">Leader identification overlays shown when a new leader is first mentioned or during key diplomatic moments. Positioned bottom-left to stay clear of gameplay UI elements.</div>
+
+  <div class="variant-controls" id="lt-variants">
+    <button class="variant-btn active" onclick="showLeader('franklin')">Ben Franklin</button>
+    <button class="variant-btn" onclick="showLeader('charlemagne')">Charlemagne</button>
+    <button class="variant-btn" onclick="showLeader('tecumseh')">Tecumseh</button>
+    <button class="variant-btn" onclick="showLeader('paha')">Paha Sapa</button>
+  </div>
+
+  <div class="mockup-viewport" id="lt-viewport">
+    <div class="gameplay-sim"></div>
+    <div class="gameplay-label">Gameplay Footage</div>
+    <div class="lower-third" id="lower-third">
+      <div class="lt-accent-bar"></div>
+      <div class="lt-body">
+        <div class="lt-name" id="lt-name">Ben Franklin</div>
+        <div class="lt-subtitle" id="lt-subtitle">Greece · Player Character</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-box">
+    <h4>Design Notes</h4>
+    <ul>
+      <li>Gold accent bar on the left edge creates visual consistency with the chapter card rule and data viz borders.</li>
+      <li>Semi-transparent dark background with backdrop-blur keeps it readable over any gameplay footage.</li>
+      <li>Lora for the leader name (editorial weight), Poppins for the civilization/role line (functional info).</li>
+      <li>Slides in from left over ~0.5s. Holds for 3 to 4 seconds. Fades out. No bounce or overshoot.</li>
+      <li>Static PNG for Episode 1. Can upgrade to animated Fusion comp later without changing the design language.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== DATA VIZ ===== -->
+<div class="section" id="dataviz">
+  <div class="section-title">Data Visualizations</div>
+  <div class="section-subtitle">Stat overlays that appear during analytical moments in Lee's narration. Positioned top-right to complement rather than compete with gameplay. Bloomberg-inspired information density with documentary typography.</div>
+
+  <div class="variant-controls" id="dv-variants">
+    <button class="variant-btn active" onclick="showDataViz('gold')">Gold Reserves</button>
+    <button class="variant-btn" onclick="showDataViz('military')">Military Comparison</button>
+    <button class="variant-btn" onclick="showDataViz('rankings')">Rankings</button>
+  </div>
+
+  <div class="mockup-viewport" id="dv-viewport">
+    <div class="gameplay-sim"></div>
+    <div class="gameplay-label">Gameplay Footage</div>
+
+    <!-- Gold Reserves Panel -->
+    <div class="dataviz-panel" id="dv-gold">
+      <div class="dv-header">
+        <div class="dv-title">Gold Reserves</div>
+        <div class="dv-subtitle">CHAPTER 5 · TURN 142</div>
+      </div>
+      <div class="dv-line-chart">
+        <svg viewBox="0 0 300 90" preserveAspectRatio="none">
+          <!-- Grid lines -->
+          <line x1="0" y1="45" x2="300" y2="45" stroke="rgba(245,240,232,0.08)" stroke-width="0.5"/>
+          <line x1="0" y1="22" x2="300" y2="22" stroke="rgba(245,240,232,0.05)" stroke-width="0.5"/>
+          <line x1="0" y1="67" x2="300" y2="67" stroke="rgba(245,240,232,0.05)" stroke-width="0.5"/>
+          <!-- Zero line -->
+          <line x1="0" y1="35" x2="300" y2="35" stroke="rgba(184,151,58,0.3)" stroke-width="0.5" stroke-dasharray="4,3"/>
+          <text x="4" y="33" fill="rgba(184,151,58,0.5)" font-size="7" font-family="Poppins">0</text>
+          <!-- Gold line going negative -->
+          <polyline points="0,30 30,28 60,32 90,35 120,40 150,48 180,55 210,60 240,68 270,75 300,80"
+            fill="none" stroke="#B8973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Area fill below zero -->
+          <polygon points="90,35 120,40 150,48 180,55 210,60 240,68 270,75 300,80 300,35 90,35"
+            fill="rgba(139,58,58,0.15)"/>
+          <!-- Crisis marker -->
+          <circle cx="300" cy="80" r="3" fill="#8B3A3A" stroke="rgba(139,58,58,0.4)" stroke-width="4"/>
+        </svg>
+      </div>
+      <div class="dv-stat-row">
+        <div class="dv-stat-label">Treasury</div>
+        <div class="dv-stat-value negative">12 gold</div>
+      </div>
+      <div class="dv-stat-row">
+        <div class="dv-stat-label">Income/Turn</div>
+        <div class="dv-stat-value negative">-59 gold/turn</div>
+      </div>
+      <div class="dv-stat-row">
+        <div class="dv-stat-label">Turns to Bankruptcy</div>
+        <div class="dv-stat-value negative">< 1</div>
+      </div>
+    </div>
+
+    <!-- Military Comparison Panel -->
+    <div class="dataviz-panel" id="dv-military" style="display:none;">
+      <div class="dv-header">
+        <div class="dv-title">Military Strength</div>
+        <div class="dv-subtitle">CHAPTER 3 · PRE-WAR</div>
+      </div>
+      <div class="dv-chart">
+        <div class="dv-bar-group">
+          <div class="dv-bar-item">
+            <div class="dv-bar-value">4</div>
+            <div class="dv-bar" style="height: 35%; background: var(--muted-gold);"></div>
+            <div class="dv-bar-label">Franklin<br/><span style="color:var(--muted-gold);font-weight:600;">Greece</span></div>
+          </div>
+          <div class="dv-bar-item">
+            <div class="dv-bar-value">9</div>
+            <div class="dv-bar" style="height: 75%; background: var(--accent-red);"></div>
+            <div class="dv-bar-label">Charle-<br/>magne<br/><span style="color:var(--accent-red-light);font-weight:600;">Francia</span></div>
+          </div>
+          <div class="dv-bar-item">
+            <div class="dv-bar-value">5</div>
+            <div class="dv-bar" style="height: 42%; background: var(--sage);"></div>
+            <div class="dv-bar-label">Tecumseh<br/><span style="color:var(--sage);font-weight:600;"> </span></div>
+          </div>
+          <div class="dv-bar-item">
+            <div class="dv-bar-value">6</div>
+            <div class="dv-bar" style="height: 50%; background: var(--steel);"></div>
+            <div class="dv-bar-label">Lafayette<br/><span style="color:var(--steel);font-weight:600;"> </span></div>
+          </div>
+        </div>
+      </div>
+      <div class="dv-stat-row">
+        <div class="dv-stat-label">Strength Ratio (vs Francia)</div>
+        <div class="dv-stat-value negative">0.44:1</div>
+      </div>
+      <div class="dv-stat-row">
+        <div class="dv-stat-label">Assessment</div>
+        <div class="dv-stat-value negative">Outmatched</div>
+      </div>
+    </div>
+
+    <!-- Rankings Panel -->
+    <div class="dataviz-panel" id="dv-rankings" style="display:none;">
+      <div class="dv-header">
+        <div class="dv-title">End of Antiquity</div>
+        <div class="dv-subtitle">RANKINGS · TURN 155</div>
+      </div>
+      <div style="margin-top: 4px;">
+        <div class="dv-stat-row">
+          <div class="dv-stat-label" style="display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--muted-gold);font-weight:700;font-size:14px;">1</span> Science
+          </div>
+          <div class="dv-stat-value neutral">Franklin</div>
+        </div>
+        <div class="dv-stat-row">
+          <div class="dv-stat-label" style="display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--muted-gold);font-weight:700;font-size:14px;">2</span> Culture
+          </div>
+          <div class="dv-stat-value neutral">Franklin</div>
+        </div>
+        <div class="dv-stat-row">
+          <div class="dv-stat-label" style="display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--warm-gray);font-weight:700;font-size:14px;">5</span> Military
+          </div>
+          <div class="dv-stat-value negative">Franklin</div>
+        </div>
+        <div class="dv-stat-row">
+          <div class="dv-stat-label" style="display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--warm-gray);font-weight:700;font-size:14px;">4</span> Gold
+          </div>
+          <div class="dv-stat-value negative">Franklin</div>
+        </div>
+        <div class="dv-stat-row">
+          <div class="dv-stat-label" style="display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--muted-gold);font-weight:700;font-size:14px;">1</span> Diplomacy
+          </div>
+          <div class="dv-stat-value positive">Franklin</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-box">
+    <h4>Design Notes</h4>
+    <ul>
+      <li>Panels float top-right to avoid conflicting with lower thirds and game UI at the bottom.</li>
+      <li>Same semi-transparent dark background + backdrop-blur as lower thirds. Consistent visual language.</li>
+      <li>Gold accent in the header divider ties to the global accent color.</li>
+      <li>Red values for negative/dangerous stats, sage green for positive, cream for neutral. Color communicates at a glance.</li>
+      <li>The gold reserves chart uses a subtle red fill below the zero line to visually show the crisis zone.</li>
+      <li>Python + matplotlib exports as PNG at 1920x1080 with alpha. Placed on GFX track above gameplay.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== COMEDY CAPTIONS ===== -->
+<div class="section" id="comedy">
+  <div class="section-title">Comedy Image Captions</div>
+  <div class="section-subtitle">Three caption style options for the comedy/photoshop images. These overlay on the GFX track images (face swaps, stock photo gags). The image area below is a placeholder representing where the actual comedy image would appear.</div>
+
+  <div class="variant-controls" id="comedy-variants">
+    <button class="variant-btn active" onclick="showCaptionStyle('bar')">Style A: Bar Caption</button>
+    <button class="variant-btn" onclick="showCaptionStyle('impact')">Style B: Impact Text</button>
+    <button class="variant-btn" onclick="showCaptionStyle('documentary')">Style C: Documentary</button>
+  </div>
+
+  <div class="mockup-viewport" id="comedy-viewport">
+    <div class="gameplay-sim" style="opacity:0.15;"></div>
+    <div class="comedy-overlay">
+      <div class="comedy-image-area">
+        <div class="comedy-placeholder">🦨</div>
+        <div class="comedy-placeholder-text">Comedy Image Here</div>
+        <div class="comedy-caption" id="comedy-caption">
+          <div class="comedy-caption-text" id="comedy-text">"Sorry dude, I was going to ask you for money"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-box">
+    <h4>Style Comparison</h4>
+    <ul>
+      <li><strong>Style A (Bar Caption):</strong> Clean Poppins on dark bar with gold border. Most "documentary" feeling. Treats the joke with visual seriousness, which makes it funnier.</li>
+      <li><strong>Style B (Impact Text):</strong> Bold white text with black outline. Classic meme/YouTube style. Higher energy, less documentary.</li>
+      <li><strong>Style C (Documentary):</strong> Italic Lora with gold left-border. Treats the caption like a documentary quote. Driest delivery of the three.</li>
+      <li>Recommendation: Style A or C for consistency with the documentary tone. Style B for moments that need extra comedic punch.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== SHOW LOGO ===== -->
+<div class="section" id="logo">
+  <div class="section-title">Show Logo</div>
+  <div class="section-subtitle">The series title treatment. Appears at the end of the episode (G1-380) and potentially in the opening sequence. This is a typography-first logo concept using the established Lora + Poppins pairing.</div>
+
+  <div class="mockup-viewport">
+    <div class="logo-container">
+      <div class="logo-main">
+        Turn-Based<br/>
+        <span class="logo-tyranny">Tyranny</span>
+      </div>
+      <div class="logo-rule"></div>
+      <div class="logo-sub">Your Civilization Has Been Destroyed</div>
+    </div>
+  </div>
+
+  <div class="notes-box">
+    <h4>Design Notes</h4>
+    <ul>
+      <li>Typography-first approach. "TYRANNY" in warm gold at display size is the visual anchor. "TURN-BASED" in cream above it at smaller weight.</li>
+      <li>Subtitle in Poppins light weight with generous letter-spacing reads as a tagline, not a title.</li>
+      <li>Gold rule divider echoes the chapter card treatment. Creates visual continuity.</li>
+      <li>Deep navy background with subtle radial gold glow. No imagery, no icons. The words do the work.</li>
+      <li>This is a starting point. Could add a graphic element (hex grid fragment, chess piece silhouette, broken column) if typography alone feels too spare.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Navigation
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Chapter cards
+  const chapters = {
+    1: { num: 'Chapter One', title: 'Opening Moves' },
+    3: { num: 'Chapter Three', title: 'The Greek-Roman War' },
+    5: { num: 'Chapter Five', title: 'Economic Ruin' },
+    8: { num: 'Chapter Eight', title: 'Neverendingism Rises' },
+    10: { num: 'Chapter Ten', title: 'Paha Sapa and the\nSecond War of the Plains' },
+    12: { num: 'Chapter Twelve', title: 'Nothing Lasts Forever' },
+  };
+
+  function showChapter(n) {
+    const ch = chapters[n];
+    const card = document.getElementById('chapter-card');
+    const nameEl = card.querySelector('.chapter-name');
+    const numEl = card.querySelector('.chapter-number');
+
+    // Update buttons
+    document.querySelectorAll('#chapter-variants .variant-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Fade out, update, fade in
+    card.style.animation = 'none';
+    card.offsetHeight; // reflow
+    numEl.textContent = ch.num;
+    nameEl.innerHTML = ch.title.replace('\n', '<br/>');
+    card.style.animation = 'chapterFadeIn 0.8s ease-out';
+  }
+
+  // Lower thirds
+  const leaders = {
+    franklin: { name: 'Ben Franklin', sub: 'Greece · Player Character' },
+    charlemagne: { name: 'Charlemagne', sub: 'Francia · Primary Antagonist' },
+    tecumseh: { name: 'Tecumseh', sub: 'Neighbor · Ally' },
+    paha: { name: 'Paha Sapa', sub: 'Major Rival · War Arc' },
+  };
+
+  function showLeader(key) {
+    const l = leaders[key];
+    const lt = document.getElementById('lower-third');
+
+    document.querySelectorAll('#lt-variants .variant-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+
+    lt.style.animation = 'none';
+    lt.offsetHeight;
+    document.getElementById('lt-name').textContent = l.name;
+    document.getElementById('lt-subtitle').textContent = l.sub;
+    lt.style.animation = 'ltSlideIn 0.5s ease-out';
+  }
+
+  // Data viz
+  function showDataViz(type) {
+    document.querySelectorAll('#dv-variants .variant-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+
+    ['gold', 'military', 'rankings'].forEach(t => {
+      document.getElementById('dv-' + t).style.display = t === type ? 'block' : 'none';
+    });
+  }
+
+  // Comedy captions
+  function showCaptionStyle(style) {
+    document.querySelectorAll('#comedy-variants .variant-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+
+    const caption = document.getElementById('comedy-caption');
+    caption.className = 'comedy-caption';
+    if (style === 'impact') caption.classList.add('impact');
+    if (style === 'documentary') caption.classList.add('documentary');
+  }
+</script>
+
+</body>
+</html>

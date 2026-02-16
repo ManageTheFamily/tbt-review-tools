@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TBT Runtime Worksheet — Guide for Lee</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #f5f0e8;
+    --ink: #1a1a1a;
+    --rust: #a0522d;
+    --gold: #c5943a;
+    --slate: #4a5568;
+    --faded: #8b7e6a;
+    --highlight: #fff8dc;
+    --code-bg: #2d2a24;
+    --code-fg: #e8dcc8;
+    --border: #d4c9b5;
+    --green: #5a7a3a;
+    --red: #8b3a3a;
+    --blue: #2c5282;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; max-width: 100%; }
+    .no-print { display: none; }
+  }
+
+  body {
+    background: #3d3830;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    line-height: 1.5;
+    padding: 2rem;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--parchment);
+    padding: 3rem 3.5rem;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--rust), var(--gold), var(--rust));
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border);
+    position: relative;
+  }
+
+  .header::after {
+    content: '\1F3AC';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--parchment);
+    padding: 0 1rem;
+    font-size: 1.2rem;
+  }
+
+  .show-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--rust);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    color: var(--faded);
+    margin-top: 0.4rem;
+    font-style: italic;
+  }
+
+  .meta-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 0.7rem;
+    font-size: 0.78rem;
+    color: var(--slate);
+  }
+
+  .meta-row span { white-space: nowrap; }
+
+  /* Cheat Sheet */
+  .cheat-sheet {
+    margin: 1.5rem 0;
+    border: 2px solid var(--rust);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .cheat-sheet-header {
+    background: var(--rust);
+    color: var(--parchment);
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .cheat-row {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.82rem;
+  }
+
+  .cheat-row:last-child { border-bottom: none; }
+
+  .cheat-row.head {
+    background: rgba(160,82,45,0.08);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--slate);
+  }
+
+  .cheat-row > div {
+    padding: 0.55rem 0.8rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .cheat-row > div:last-child { border-right: none; }
+
+  .cheat-row:not(.head):nth-child(odd) {
+    background: rgba(197,148,58,0.06);
+  }
+
+  code, .code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  /* Sections */
+  .section {
+    margin-top: 1.8rem;
+  }
+
+  h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1rem;
+    color: var(--rust);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h2 .num {
+    display: inline-block;
+    background: var(--rust);
+    color: var(--parchment);
+    width: 1.5rem;
+    height: 1.5rem;
+    text-align: center;
+    line-height: 1.5rem;
+    border-radius: 50%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+  }
+
+  h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+    margin: 0.4rem 0;
+    color: var(--slate);
+  }
+
+  /* Callout box */
+  .callout {
+    background: var(--highlight);
+    border-left: 4px solid var(--gold);
+    padding: 0.8rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.82rem;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .callout strong { color: var(--rust); }
+
+  .callout.callout-green {
+    border-left-color: var(--green);
+    background: #f5faf0;
+  }
+
+  .callout.callout-blue {
+    border-left-color: var(--blue);
+    background: #f0f5fa;
+  }
+
+  /* Column table */
+  .col-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0;
+    font-size: 0.8rem;
+  }
+
+  .col-table th {
+    background: rgba(160,82,45,0.08);
+    text-align: left;
+    padding: 0.45rem 0.7rem;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--slate);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .col-table td {
+    padding: 0.4rem 0.7rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--slate);
+    vertical-align: top;
+  }
+
+  .col-table tr:nth-child(even) td {
+    background: rgba(197,148,58,0.04);
+  }
+
+  .col-table .col-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .col-table .col-highlight {
+    background: rgba(197,148,58,0.15) !important;
+  }
+
+  .col-table .col-highlight .col-name {
+    color: var(--rust);
+  }
+
+  /* Defaults cards */
+  .defaults-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    margin: 0.8rem 0;
+  }
+
+  .default-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .default-card .d-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--rust);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .default-card .d-desc {
+    font-size: 0.78rem;
+    color: var(--slate);
+  }
+
+  .default-card.d-skip {
+    opacity: 0.55;
+    border-style: dashed;
+  }
+
+  /* Workflow steps */
+  .step {
+    display: flex;
+    gap: 0.8rem;
+    margin: 0.8rem 0;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    background: var(--rust);
+    color: var(--parchment);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .step-body {
+    flex: 1;
+  }
+
+  .step-body .step-title {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+
+  .step-body p {
+    margin: 0.15rem 0;
+    font-size: 0.82rem;
+  }
+
+  /* Example cards */
+  .example-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.9rem 1.1rem;
+    margin: 0.8rem 0;
+    position: relative;
+  }
+
+  .example-card .ex-tag {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.6rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.1rem 0.45rem;
+    border-radius: 2px;
+  }
+
+  .ex-tag.tag-up { background: #fef2f2; color: var(--red); border: 1px solid var(--red); }
+  .ex-tag.tag-down { background: #f0fdf4; color: var(--green); border: 1px solid var(--green); }
+  .ex-tag.tag-maybe { background: #fefce8; color: #92400e; border: 1px solid #d4a843; }
+  .ex-tag.tag-check { background: #e3f2fd; color: var(--blue); border: 1px solid var(--blue); }
+
+  .example-card .ex-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--rust);
+    font-weight: 600;
+  }
+
+  .example-card .ex-desc {
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--ink);
+    margin: 0.2rem 0;
+  }
+
+  .example-card .ex-default {
+    font-size: 0.78rem;
+    color: var(--faded);
+    margin-bottom: 0.3rem;
+  }
+
+  .example-card .ex-advice {
+    font-size: 0.82rem;
+    color: var(--slate);
+  }
+
+  .example-card .ex-advice strong {
+    color: var(--ink);
+  }
+
+  /* Chapter summary table */
+  .ch-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0;
+    font-size: 0.78rem;
+  }
+
+  .ch-table th {
+    background: rgba(160,82,45,0.08);
+    text-align: left;
+    padding: 0.35rem 0.6rem;
+    font-weight: 700;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--slate);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .ch-table td {
+    padding: 0.3rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--slate);
+  }
+
+  .ch-table tr:nth-child(even) td {
+    background: rgba(197,148,58,0.04);
+  }
+
+  .ch-table .ch-big td {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .ch-table .ch-total {
+    font-weight: 700;
+    border-top: 2px solid var(--rust);
+  }
+
+  .ch-table .ch-total td {
+    color: var(--rust);
+    font-weight: 700;
+  }
+
+  /* Bullet lists */
+  .guide-list {
+    list-style: none;
+    margin: 0.5rem 0 0.5rem 0.5rem;
+    font-size: 0.82rem;
+  }
+
+  .guide-list li {
+    padding: 0.25rem 0 0.25rem 1.2rem;
+    position: relative;
+    color: var(--slate);
+  }
+
+  .guide-list li::before {
+    content: '\2022';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .guide-list li strong { color: var(--ink); }
+
+  /* Don't list */
+  .dont-list {
+    list-style: none;
+    margin: 0.5rem 0 0.5rem 0.5rem;
+    font-size: 0.82rem;
+  }
+
+  .dont-list li {
+    padding: 0.25rem 0 0.25rem 1.6rem;
+    position: relative;
+    color: var(--slate);
+  }
+
+  .dont-list li::before {
+    content: '\2717';
+    position: absolute;
+    left: 0.2rem;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .dont-list li strong { color: var(--ink); }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--border);
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--faded);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="show-title">Turn-Based Tyranny</div>
+    <h1>Runtime Worksheet Guide</h1>
+    <div class="subtitle">How to estimate the final episode runtime before deep editing begins</div>
+    <div class="meta-row">
+      <span>Episode 1 &mdash; Game 1</span>
+      <span>15-30 minutes of your time</span>
+      <span>Target runtime: 55-70 min</span>
+    </div>
+  </div>
+
+  <!-- WHAT IS THIS -->
+  <div class="callout">
+    <strong>What is this?</strong> The worksheet lists every moment in the Game 1 script &mdash; all 381 rows. Each row has a pre-filled time estimate for how long it&rsquo;ll be in the final episode. The estimates are computer-generated guesses. Your job is to scan through and fix the ones that feel wrong. You know this script and this gameplay better than anyone.
+  </div>
+
+  <p>The current default total is <strong style="color:var(--ink)">71 minutes</strong>. The target is <strong style="color:var(--ink)">55-70 minutes</strong>. Your adjustments will tell Seth where the episode is headed before he spends hours on detailed edits.</p>
+
+  <!-- QUICK REFERENCE CHEAT SHEET -->
+  <div class="cheat-sheet">
+    <div class="cheat-sheet-header">Quick Reference</div>
+    <div class="cheat-row head">
+      <div>If the moment is&hellip;</div>
+      <div>Set est_seconds to&hellip;</div>
+    </div>
+    <div class="cheat-row">
+      <div>A major plot turning point</div>
+      <div><strong>6-12</strong> seconds</div>
+    </div>
+    <div class="cheat-row">
+      <div>A quick gameplay flash</div>
+      <div><strong>2-3</strong> seconds</div>
+    </div>
+    <div class="cheat-row">
+      <div>A full battle sequence you love</div>
+      <div><strong>50-60%</strong> of current_duration_s</div>
+    </div>
+    <div class="cheat-row">
+      <div>A battle with lots of dead time</div>
+      <div><strong>30-40%</strong> of current_duration_s</div>
+    </div>
+    <div class="cheat-row">
+      <div>A punchy one-liner interview</div>
+      <div><strong>3-5</strong> seconds</div>
+    </div>
+    <div class="cheat-row">
+      <div>A full interview monologue</div>
+      <div><strong>20-45</strong> seconds</div>
+    </div>
+    <div class="cheat-row">
+      <div>An image or graphic</div>
+      <div><strong>2-4</strong> seconds</div>
+    </div>
+    <div class="cheat-row">
+      <div>Something you want to cut entirely</div>
+      <div><strong>0</strong></div>
+    </div>
+  </div>
+
+  <!-- COLUMN DEFINITIONS -->
+  <div class="section">
+    <h2>What the Columns Mean</h2>
+    <table class="col-table">
+      <thead>
+        <tr><th>Column</th><th>What It Is</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-name">clip_id</td><td>The unique label for each moment (G1-001, G1-002, etc.)</td></tr>
+        <tr><td class="col-name">chapter</td><td>Which chapter this belongs to (1-12)</td></tr>
+        <tr><td class="col-name">chapter_title</td><td>The chapter name (OPENING MOVES, THE GREEK-ROMAN WAR, etc.)</td></tr>
+        <tr><td class="col-name">clip_type</td><td>What kind of content: GAMEPLAY, INTERVIEW, IMAGE, etc.</td></tr>
+        <tr><td class="col-name">source_tape</td><td>Which recording this footage comes from (Tape 1, Tape 2, etc.)</td></tr>
+        <tr><td class="col-name">tc_in</td><td>Where in the tape this clip starts (timecode)</td></tr>
+        <tr><td class="col-name">tc_out</td><td>Where in the tape this clip ends</td></tr>
+        <tr><td class="col-name">current_duration_s</td><td>How many seconds of raw footage we actually have</td></tr>
+        <tr class="col-highlight"><td class="col-name">est_seconds</td><td><strong>YOUR COLUMN</strong> &mdash; the estimated seconds this will be in the final cut</td></tr>
+        <tr><td class="col-name">est_basis</td><td>How the default estimate was calculated (see below)</td></tr>
+        <tr><td class="col-name">description</td><td>What happens in this moment (first 80 characters)</td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-green">
+      <strong>You only need to edit one column: <code>est_seconds</code> (column I).</strong> Everything else is reference information so you can make good judgments.
+    </div>
+  </div>
+
+  <!-- DEFAULTS EXPLAINED -->
+  <div class="section">
+    <h2>Understanding the Defaults</h2>
+    <p>The <code>est_basis</code> column tells you <em>why</em> the default is what it is:</p>
+
+    <div class="defaults-grid">
+      <div class="default-card">
+        <div class="d-label">"buffer default 4s"</div>
+        <div class="d-desc">A 30-second window around a gameplay moment. Default assumes you&rsquo;ll use ~4 seconds of the key action. Increase for big moments, decrease for quick flashes.</div>
+      </div>
+      <div class="default-card">
+        <div class="d-label">"40% of 69s"</div>
+        <div class="d-desc">A longer gameplay sequence with defined start/end times. Default uses 40% of raw footage. Increase for featured battles, decrease if there&rsquo;s dead time.</div>
+      </div>
+      <div class="default-card">
+        <div class="d-label">"50w @ 2.5wps"</div>
+        <div class="d-desc">An interview segment. The number before &ldquo;w&rdquo; is the word count, 2.5 words per second is the assumed speaking pace. Adjust based on your actual delivery.</div>
+      </div>
+      <div class="default-card">
+        <div class="d-label">"image default"</div>
+        <div class="d-desc">An image or graphic on screen. Default is 3 seconds. Increase for complex images, decrease for quick visual gags.</div>
+      </div>
+      <div class="default-card">
+        <div class="d-label">"needs collection"</div>
+        <div class="d-desc">Footage that hasn&rsquo;t been captured yet. Default is 3 seconds as a placeholder. Set to 0 if you plan to cut it.</div>
+      </div>
+      <div class="default-card d-skip">
+        <div class="d-label">"group header"</div>
+        <div class="d-desc">A structural label, not actual content. Always 0 seconds. Ignore these rows.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WORKFLOW -->
+  <div class="section">
+    <h2>Your Workflow</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Open the file</div>
+        <p>Open <code>runtime_worksheet.csv</code> in Excel or Google Sheets. You should see <code>clip_id</code> in column A through <code>description</code> in column K. If it looks like one giant column, use <strong>Data &gt; Text to Columns</strong> (Excel) or re-import with comma delimiter.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Sort by chapter</div>
+        <p>Click on column B (<code>chapter</code>) and sort ascending. This groups everything by chapter so you can work through the story in order.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Scan each chapter</div>
+        <p>Read through the descriptions. You don&rsquo;t need to watch any footage &mdash; just use your memory of the script and gameplay. Ask yourself: <em>does this default feel about right?</em></p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Adjust where needed</div>
+        <p>Change <code>est_seconds</code> for any row where the default feels wrong:</p>
+        <ul class="guide-list">
+          <li><strong>Big moments deserve more time.</strong> War declarations, key alliances, dramatic reversals &mdash; bump these up.</li>
+          <li><strong>Quick flashes need less.</strong> Menu screens, brief UI pops, minor notifications &mdash; bring to 2-3 seconds.</li>
+          <li><strong>Short interviews:</strong> if a line is just &ldquo;Commerce equals friendship. Right?&rdquo; then 3 seconds is plenty.</li>
+          <li><strong>Long interviews:</strong> descriptions are truncated at 80 chars, so word counts underestimate longer monologues. If you remember a section being 30-40 seconds, set it there.</li>
+          <li><strong>Cut entirely:</strong> set to 0 if something doesn&rsquo;t need to be in the episode.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Save</div>
+        <p>Save the file (keep it as CSV). That&rsquo;s it. Let Seth know it&rsquo;s done.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHAT TO LOOK FOR -->
+  <div class="section">
+    <h2>What to Look For</h2>
+
+    <h3>Gameplay Clips (buffer default 4s)</h3>
+    <p>Most of these are quick moments &mdash; settling a town, meeting a leader, a menu click. 4 seconds is reasonable for most. Focus on the ones that should be <strong>longer</strong>:</p>
+    <ul class="guide-list">
+      <li>Battle sequences that unfold over several seconds</li>
+      <li>Diplomatic confrontations you want the viewer to absorb</li>
+      <li>Funny or surprising moments that need a beat</li>
+    </ul>
+    <p>And the ones that should be <strong>shorter</strong> or <strong>zero</strong>:</p>
+    <ul class="guide-list">
+      <li>Duplicate information (two clips showing the same thing)</li>
+      <li>Setup actions the viewer doesn&rsquo;t need to see</li>
+    </ul>
+
+    <h3>Gameplay Clips (40% of raw range)</h3>
+    <p>These are the big sequences &mdash; full battles, exploration montages, extended gameplay. 40% is aggressive trimming. Think about:</p>
+    <ul class="guide-list">
+      <li>Is this a <em>highlight reel</em> moment? Keep 40% or less.</li>
+      <li>Is this the <em>main event</em> the viewer came to see? Bump to 50-60%.</li>
+      <li>Is there dead time in the middle? Keep 40% or even go lower.</li>
+    </ul>
+
+    <h3>Interviews</h3>
+    <p>The word-count estimates work well for average-paced delivery. Adjust if:</p>
+    <ul class="guide-list">
+      <li>You speak faster in certain sections (excited, rapid-fire commentary)</li>
+      <li>You speak slower (dramatic pauses, building tension)</li>
+      <li>The description is truncated and the actual speech is much longer</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- EXAMPLES -->
+  <div class="section">
+    <h2>Concrete Examples from Your Script</h2>
+
+    <div class="example-card">
+      <span class="ex-tag tag-up">Increase?</span>
+      <div class="ex-id">G1-038 &mdash; Chapter 2</div>
+      <div class="ex-desc">&ldquo;Charlemagne declares war on me&rdquo;</div>
+      <div class="ex-default">Default: <strong>4s</strong> (buffer default)</div>
+      <div class="ex-advice">This is a huge turning point in the story. The viewer needs to see Charlemagne&rsquo;s declaration, absorb the shock, maybe see your reaction. You might want <strong>6-10 seconds</strong> here.</div>
+    </div>
+
+    <div class="example-card">
+      <span class="ex-tag tag-down">Decrease?</span>
+      <div class="ex-id">G1-067 &mdash; Chapter 4</div>
+      <div class="ex-desc">&ldquo;10 Turns&rdquo;</div>
+      <div class="ex-default">Default: <strong>4s</strong> (buffer default)</div>
+      <div class="ex-advice">This is a turn counter on screen. A quick <strong>2 seconds</strong> &mdash; maybe even just a flash &mdash; is probably enough for the viewer to register the number.</div>
+    </div>
+
+    <div class="example-card">
+      <span class="ex-tag tag-maybe">Review</span>
+      <div class="ex-id">G1-134 &mdash; Chapter 6</div>
+      <div class="ex-desc">&ldquo;Combat&rdquo;</div>
+      <div class="ex-default">Default: <strong>198s</strong> (40% of 494s raw footage)</div>
+      <div class="ex-advice">This is an 8-minute battle sequence trimmed to about 3 min 18 sec. If this is the climactic invasion of The War of the Desert &mdash; the one you&rsquo;ve been building toward for two chapters &mdash; you might want <strong>250-300 seconds</strong> (4-5 minutes). If a lot of this footage is repetitive combat animations, 198s might even be generous.</div>
+    </div>
+
+    <div class="example-card">
+      <span class="ex-tag tag-check">Check</span>
+      <div class="ex-id">G1-001 &mdash; Chapter 1</div>
+      <div class="ex-desc">&ldquo;I choose Ben Franklin as my leader&hellip;&rdquo;</div>
+      <div class="ex-default">Default: <strong>20s</strong> (50 words at 2.5 words per second)</div>
+      <div class="ex-advice">The description is cut off at 80 characters. If the actual recorded interview for this opening section is 30-40 seconds of you explaining all your game setup choices, <strong>bump it up</strong>. If you plan to trim it to just the essentials, maybe keep it at 20 or bring it down.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CHAPTER SUMMARY -->
+  <div class="section">
+    <h2>Reading the Summary (Bottom of Spreadsheet)</h2>
+    <p>Scroll past row 382 to see the summary sections. Use the per-chapter numbers to check balance &mdash; if one chapter is 14 minutes and another is 1.5 minutes, is that intentional?</p>
+
+    <table class="ch-table">
+      <thead>
+        <tr><th>Ch</th><th>Est.</th><th>Title</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>2.9m</td><td>OPENING MOVES</td></tr>
+        <tr><td>2</td><td>2.8m</td><td>CHARLEMAGNE SOURS ON ME</td></tr>
+        <tr class="ch-big"><td>3</td><td>10.3m</td><td>THE GREEK-ROMAN WAR</td></tr>
+        <tr><td>4</td><td>2.4m</td><td>AFTER THE WAR</td></tr>
+        <tr><td>5</td><td>1.5m</td><td>ECONOMIC RUIN</td></tr>
+        <tr class="ch-big"><td>6</td><td>12.6m</td><td>THE WAR OF THE DESERT</td></tr>
+        <tr><td>7</td><td>6.2m</td><td>WAR ON TWO FRONTS</td></tr>
+        <tr><td>8</td><td>5.5m</td><td>NEVERENDINGISM RISES</td></tr>
+        <tr><td>9</td><td>5.6m</td><td>THE FINAL AGE</td></tr>
+        <tr class="ch-big"><td>10</td><td>14.2m</td><td>PAHA SAPA AND THE SECOND WAR OF THE PLAINS</td></tr>
+        <tr><td>11</td><td>4.6m</td><td>SAVE ME, INDIANA JONES!</td></tr>
+        <tr><td>12</td><td>2.8m</td><td>NOTHING LASTS FOREVER</td></tr>
+        <tr class="ch-total"><td></td><td>71.4m</td><td>TOTAL &mdash; Target: 55-70 min</td></tr>
+      </tbody>
+    </table>
+    <p>The three highlighted chapters (the big wars) account for over half the runtime. That&rsquo;s where your adjustments will have the most impact.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHAT YOU DON'T NEED TO DO -->
+  <div class="section">
+    <h2>What You Don&rsquo;t Need to Do</h2>
+    <ul class="dont-list">
+      <li><strong>Don&rsquo;t adjust every row.</strong> Most defaults are close enough. Focus on the 20-30 rows where your gut says &ldquo;that&rsquo;s wrong.&rdquo;</li>
+      <li><strong>Don&rsquo;t worry about being exact.</strong> If you think a clip should be &ldquo;around 6 seconds,&rdquo; just type 6. We&rsquo;re estimating, not editing.</li>
+      <li><strong>Don&rsquo;t change any column except est_seconds.</strong> Everything else is reference data.</li>
+      <li><strong>Don&rsquo;t worry about the group header rows</strong> (est_seconds = 0). Those are structural markers.</li>
+      <li><strong>Don&rsquo;t add or delete rows.</strong> Just change numbers.</li>
+    </ul>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Turn-Based Tyranny &mdash; Your Civilization Has Been Destroyed<br>
+    Updated February 15, 2026
+  </div>
+
+</div>
+</body>
+</html>

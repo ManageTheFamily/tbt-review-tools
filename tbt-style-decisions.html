@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TBT — Episode 1 Style Decisions</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1A2332;
+    --charcoal: #2C2C2C;
+    --cream: #F5F0E8;
+    --ivory: #EDE8DC;
+    --parchment: #D9D0C1;
+    --gold: #B8973A;
+    --warm-gold: #D4A843;
+    --war-red: #8B3A3A;
+    --dusty-gold: #9E8A5C;
+    --sage: #5A6B52;
+    --steel: #4A5568;
+    --warm-gray: #6B6560;
+    --bg: #0D0F13;
+    --card-bg: rgba(26,35,50,0.5);
+    --card-border: rgba(184,151,58,0.1);
+    --card-border-hover: rgba(184,151,58,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  .page-header {
+    padding: 48px 48px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .page-header .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--dusty-gold);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .page-header h1 {
+    font-family: 'Lora', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+  .page-header .intro {
+    font-size: 13px;
+    color: var(--warm-gray);
+    line-height: 1.8;
+    max-width: 660px;
+  }
+
+  /* === NAME SELECTOR === */
+  .name-bar {
+    max-width: 900px;
+    margin: 24px auto 0;
+    padding: 0 48px;
+  }
+  .name-bar .prompt {
+    font-size: 12px;
+    color: var(--warm-gray);
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+  .name-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  .name-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--parchment);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .name-btn:hover {
+    border-color: var(--card-border-hover);
+    color: var(--cream);
+  }
+  .name-btn.active {
+    background: rgba(184,151,58,0.12);
+    border-color: var(--gold);
+    color: var(--warm-gold);
+  }
+
+  /* === SECTIONS === */
+  .decisions-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 48px 80px;
+  }
+
+  .decision-section {
+    margin-bottom: 40px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .section-header h2 {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cream);
+  }
+  .section-status {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 3px;
+  }
+  .status-ready {
+    background: rgba(90,107,82,0.2);
+    color: var(--sage);
+    border: 1px solid rgba(90,107,82,0.3);
+  }
+  .status-pending {
+    background: rgba(107,101,96,0.15);
+    color: var(--warm-gray);
+    border: 1px solid rgba(107,101,96,0.2);
+  }
+  .section-desc {
+    font-size: 13px;
+    color: var(--warm-gray);
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+  .section-link {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--dusty-gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(158,138,92,0.3);
+    margin-bottom: 20px;
+    transition: all 0.2s;
+  }
+  .section-link:hover {
+    color: var(--warm-gold);
+    border-bottom-color: var(--warm-gold);
+  }
+
+  /* === OPTION CARDS === */
+  .options-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .option-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+    flex: 1;
+    min-width: 140px;
+  }
+  .option-card:hover {
+    border-color: var(--card-border-hover);
+  }
+  .option-card.selected {
+    background: rgba(184,151,58,0.1);
+    border-color: var(--gold);
+  }
+  .option-card .option-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 2px;
+  }
+  .option-card.selected .option-label {
+    color: var(--warm-gold);
+  }
+  .option-card .option-desc {
+    font-size: 11px;
+    color: var(--warm-gray);
+    line-height: 1.5;
+  }
+
+  /* === NOTES === */
+  .notes-field {
+    width: 100%;
+    background: rgba(26,35,50,0.3);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 12px 16px;
+    color: var(--cream);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 60px;
+    transition: border-color 0.25s;
+  }
+  .notes-field::placeholder {
+    color: rgba(107,101,96,0.6);
+  }
+  .notes-field:focus {
+    outline: none;
+    border-color: rgba(184,151,58,0.3);
+  }
+  .notes-label {
+    font-size: 11px;
+    color: var(--warm-gray);
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+
+  /* === APPROVAL ROW (for approve/needs changes) === */
+  .approval-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .approval-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--parchment);
+  }
+  .approval-btn:hover { border-color: var(--card-border-hover); }
+  .approval-btn.selected.approve {
+    background: rgba(90,107,82,0.15);
+    border-color: var(--sage);
+    color: var(--sage);
+  }
+  .approval-btn.selected.changes {
+    background: rgba(139,58,58,0.12);
+    border-color: var(--war-red);
+    color: var(--war-red);
+  }
+
+  /* === DIVIDER === */
+  .section-divider {
+    border: none;
+    border-top: 1px solid rgba(184,151,58,0.06);
+    margin: 40px 0;
+  }
+
+  /* === EXPORT BAR === */
+  .export-bar {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 48px 60px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .export-btn {
+    background: rgba(184,151,58,0.12);
+    border: 1px solid var(--gold);
+    color: var(--warm-gold);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .export-btn:hover {
+    background: rgba(184,151,58,0.2);
+  }
+  .export-btn.secondary {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+    color: var(--parchment);
+  }
+  .export-btn.secondary:hover {
+    border-color: var(--card-border-hover);
+    color: var(--cream);
+  }
+  .export-msg {
+    font-size: 12px;
+    color: var(--sage);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .export-msg.show { opacity: 1; }
+
+  /* === SAVED INDICATOR === */
+  .save-indicator {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: rgba(26,35,50,0.9);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 11px;
+    color: var(--warm-gray);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s;
+    pointer-events: none;
+    backdrop-filter: blur(8px);
+  }
+  .save-indicator.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === DISABLED STATE === */
+  .decisions-container.disabled .option-card,
+  .decisions-container.disabled .approval-btn,
+  .decisions-container.disabled .notes-field {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .decisions-container.disabled::before {
+    content: '';
+    display: block;
+    background: rgba(184,151,58,0.08);
+    border: 1px solid rgba(184,151,58,0.15);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 13px;
+    color: var(--warm-gold);
+  }
+
+  .pick-name-msg {
+    background: rgba(184,151,58,0.08);
+    border: 1px solid rgba(184,151,58,0.15);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 13px;
+    color: var(--warm-gold);
+    display: none;
+  }
+  .decisions-container.disabled .pick-name-msg {
+    display: block;
+  }
+
+  @media (max-width: 700px) {
+    .page-header, .name-bar, .decisions-container, .export-bar {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .options-row { flex-direction: column; }
+    .option-card { min-width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Turn-Based Tyranny — Episode 1</div>
+  <h1>Style Decisions</h1>
+  <p class="intro">Review the linked mockups for each category, pick your preferred direction, and add any notes. Your selections auto-save in your browser. When you're done, use the "Copy My Picks" button at the bottom to share your choices with the team.</p>
+</div>
+
+<div class="name-bar">
+  <div class="prompt">Who are you?</div>
+  <div class="name-buttons">
+    <button class="name-btn" onclick="selectName('Seth')">Seth</button>
+    <button class="name-btn" onclick="selectName('Lee')">Lee</button>
+    <button class="name-btn" onclick="selectName('Morgan')">Morgan</button>
+  </div>
+</div>
+
+<div class="decisions-container disabled" id="decisions">
+  <div class="pick-name-msg">Pick your name above to start recording your selections.</div>
+
+  <!-- === COLOR PALETTE === -->
+  <div class="decision-section" data-key="color-palette">
+    <div class="section-header">
+      <h2>Color Palette</h2>
+      <span class="section-status status-ready">Ready for Review</span>
+    </div>
+    <p class="section-desc">Muted documentary tones: deep navy, cream, gold accents, with chapter-specific color coding for war, economy, and diplomacy.</p>
+    <a class="section-link" href="https://managethefamily.github.io/tbt-review-tools/tbt-style-mockups.html" target="_blank">View in Style Mockups →</a>
+    <div class="approval-row">
+      <button class="approval-btn approve" onclick="setApproval('color-palette','Approve')">Approve</button>
+      <button class="approval-btn changes" onclick="setApproval('color-palette','Needs Changes')">Needs Changes</button>
+    </div>
+    <div class="notes-label">Notes (optional)</div>
+    <textarea class="notes-field" placeholder="Any thoughts on the color palette..." oninput="saveNotes('color-palette', this.value)"></textarea>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- === FONT PAIRING === -->
+  <div class="decision-section" data-key="font-pairing">
+    <div class="section-header">
+      <h2>Font Pairing</h2>
+      <span class="section-status status-ready">Ready for Review</span>
+    </div>
+    <p class="section-desc">Lora (serif) for titles and names. Poppins (sans-serif) for stats, labels, and captions. Note: the chapter title card directions include alternative typefaces (Cinzel in Direction B, EB Garamond in Direction C) that would modify this pairing.</p>
+    <a class="section-link" href="https://managethefamily.github.io/tbt-review-tools/tbt-style-mockups.html" target="_blank">View in Style Mockups →</a>
+    <div class="approval-row">
+      <button class="approval-btn approve" onclick="setApproval('font-pairing','Approve')">Approve</button>
+      <button class="approval-btn changes" onclick="setApproval('font-pairing','Needs Changes')">Needs Changes</button>
+    </div>
+    <div class="notes-label">Notes (optional)</div>
+    <textarea class="notes-field" placeholder="Any thoughts on the font pairing..." oninput="saveNotes('font-pairing', this.value)"></textarea>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- === CHAPTER TITLE CARDS === -->
+  <div class="decision-section" data-key="title-cards">
+    <div class="section-header">
+      <h2>Chapter Title Cards</h2>
+      <span class="section-status status-ready">Ready for Review</span>
+    </div>
+    <p class="section-desc">Full-screen cards shown between chapters. Three directions to choose from. Click through all 12 chapters in each direction before picking.</p>
+    <a class="section-link" href="https://managethefamily.github.io/tbt-review-tools/tbt-chapter-title-directions.html" target="_blank">View Chapter Title Directions →</a>
+    <div class="options-row">
+      <div class="option-card" onclick="setOption('title-cards','A')">
+        <div class="option-label">A — Editorial Minimalist</div>
+        <div class="option-desc">Centered Lora on navy. Gold rule. Maximum restraint.</div>
+      </div>
+      <div class="option-card" onclick="setOption('title-cards','B')">
+        <div class="option-label">B — Archival Cartographic</div>
+        <div class="option-desc">Cinzel serif, grid field, ghost numbers. War room atlas.</div>
+      </div>
+      <div class="option-card" onclick="setOption('title-cards','C')">
+        <div class="option-label">C — Cinematic Field</div>
+        <div class="option-desc">EB Garamond Italic, letterbox bars, film grain. Art cinema.</div>
+      </div>
+    </div>
+    <div class="notes-label">Notes (optional)</div>
+    <textarea class="notes-field" placeholder="Which direction and why, or describe a hybrid..." oninput="saveNotes('title-cards', this.value)"></textarea>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- === COMEDY CAPTIONS === -->
+  <div class="decision-section" data-key="comedy-captions">
+    <div class="section-header">
+      <h2>Comedy Captions</h2>
+      <span class="section-status status-ready">Ready for Review</span>
+    </div>
+    <p class="section-desc">Caption style for the comedy/photoshop images. Three styles shown in the style mockups.</p>
+    <a class="section-link" href="https://managethefamily.github.io/tbt-review-tools/tbt-style-mockups.html" target="_blank">View in Style Mockups →</a>
+    <div class="options-row">
+      <div class="option-card" onclick="setOption('comedy-captions','A')">
+        <div class="option-label">A — Bar Caption</div>
+        <div class="option-desc">Clean Poppins on dark bar with gold border. Documentary tone.</div>
+      </div>
+      <div class="option-card" onclick="setOption('comedy-captions','B')">
+        <div class="option-label">B — Impact Text</div>
+        <div class="option-desc">Bold white with black outline. Classic meme/YouTube energy.</div>
+      </div>
+      <div class="option-card" onclick="setOption('comedy-captions','C')">
+        <div class="option-label">C — Documentary Quote</div>
+        <div class="option-desc">Italic Lora with gold left-border. Driest delivery.</div>
+      </div>
+    </div>
+    <div class="notes-label">Notes (optional)</div>
+    <textarea class="notes-field" placeholder="Style preference or mix..." oninput="saveNotes('comedy-captions', this.value)"></textarea>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- === LOWER THIRDS === -->
+  <div class="decision-section" data-key="lower-thirds">
+    <div class="section-header">
+      <h2>Lower Thirds</h2>
+      <span class="section-status status-pending">Mockups Pending</span>
+    </div>
+    <p class="section-desc">Leader identification overlays. Multiple directions will be presented once the title card direction is locked. The initial concept is shown in the style mockups.</p>
+    <a class="section-link" href="https://managethefamily.github.io/tbt-review-tools/tbt-style-mockups.html" target="_blank">View current concept in Style Mockups →</a>
+    <div class="notes-label">Early thoughts (optional)</div>
+    <textarea class="notes-field" placeholder="Any initial reactions to the lower third concept in the style mockups..." oninput="saveNotes('lower-thirds', this.value)"></textarea>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- === DATA VIZ === -->
+  <div class="decision-section" data-key="data-viz">
+    <div class="section-header">
+      <h2>Data Visualizations</h2>
+      <span class="section-status status-pending">Mockups Pending</span>
+    </div>
+    <p class="section-desc">Stat overlays for analytical moments. Multiple directions will be presented. The initial concept is shown in the style mockups.</p>
+    <a class="section-link" href="https://managethefamily.github.io/tbt-review-tools/tbt-style-mockups.html" target="_blank">View current concept in Style Mockups →</a>
+    <div class="notes-label">Early thoughts (optional)</div>
+    <textarea class="notes-field" placeholder="Any initial reactions to the data viz concepts..." oninput="saveNotes('data-viz', this.value)"></textarea>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- === LOGO === -->
+  <div class="decision-section" data-key="logo">
+    <div class="section-header">
+      <h2>Logo</h2>
+      <span class="section-status status-pending">Mockups Pending</span>
+    </div>
+    <p class="section-desc">Series title treatment. The initial typography-first concept is shown in the style mockups. Additional directions coming.</p>
+    <a class="section-link" href="https://managethefamily.github.io/tbt-review-tools/tbt-style-mockups.html" target="_blank">View current concept in Style Mockups →</a>
+    <div class="notes-label">Early thoughts (optional)</div>
+    <textarea class="notes-field" placeholder="Any initial reactions to the logo concept..." oninput="saveNotes('logo', this.value)"></textarea>
+  </div>
+</div>
+
+<div class="export-bar">
+  <button class="export-btn" onclick="copyPicks()">Copy My Picks</button>
+  <button class="export-btn secondary" onclick="clearAll()">Clear My Selections</button>
+  <span class="export-msg" id="exportMsg"></span>
+</div>
+
+<div class="save-indicator" id="saveIndicator">Saved</div>
+
+<script>
+let currentName = null;
+let saveTimeout = null;
+
+const STORAGE_PREFIX = 'tbt-style-decisions-';
+
+const sectionLabels = {
+  'color-palette': 'Color Palette',
+  'font-pairing': 'Font Pairing',
+  'title-cards': 'Chapter Title Cards',
+  'comedy-captions': 'Comedy Captions',
+  'lower-thirds': 'Lower Thirds',
+  'data-viz': 'Data Visualizations',
+  'logo': 'Logo'
+};
+
+function getStorageKey() {
+  return STORAGE_PREFIX + currentName;
+}
+
+function loadData() {
+  if (!currentName) return {};
+  try {
+    const raw = localStorage.getItem(getStorageKey());
+    return raw ? JSON.parse(raw) : {};
+  } catch(e) {
+    return {};
+  }
+}
+
+function saveData(data) {
+  if (!currentName) return;
+  localStorage.setItem(getStorageKey(), JSON.stringify(data));
+  showSaveIndicator();
+}
+
+function showSaveIndicator() {
+  const el = document.getElementById('saveIndicator');
+  el.classList.add('show');
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(() => el.classList.remove('show'), 1500);
+}
+
+function selectName(name) {
+  currentName = name;
+  document.querySelectorAll('.name-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent === name);
+  });
+  document.getElementById('decisions').classList.remove('disabled');
+  restoreSelections();
+}
+
+function restoreSelections() {
+  const data = loadData();
+
+  // Clear all current visual states
+  document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.approval-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.notes-field').forEach(f => f.value = '');
+
+  // Restore selections
+  Object.keys(data).forEach(key => {
+    const entry = data[key];
+    if (!entry) return;
+
+    const section = document.querySelector(`[data-key="${key}"]`);
+    if (!section) return;
+
+    // Restore option selection
+    if (entry.selection) {
+      section.querySelectorAll('.option-card').forEach(card => {
+        const label = card.querySelector('.option-label').textContent;
+        if (label.startsWith(entry.selection)) {
+          card.classList.add('selected');
+        }
+      });
+      // Restore approval selection
+      section.querySelectorAll('.approval-btn').forEach(btn => {
+        if (btn.textContent === entry.selection) {
+          btn.classList.add('selected');
+          if (entry.selection === 'Approve') btn.classList.add('approve');
+          if (entry.selection === 'Needs Changes') btn.classList.add('changes');
+        }
+      });
+    }
+
+    // Restore notes
+    if (entry.notes) {
+      const textarea = section.querySelector('.notes-field');
+      if (textarea) textarea.value = entry.notes;
+    }
+  });
+}
+
+function setOption(sectionKey, value) {
+  if (!currentName) return;
+  const data = loadData();
+  if (!data[sectionKey]) data[sectionKey] = {};
+  data[sectionKey].selection = value;
+  saveData(data);
+
+  // Update UI
+  const section = document.querySelector(`[data-key="${sectionKey}"]`);
+  section.querySelectorAll('.option-card').forEach(card => {
+    const label = card.querySelector('.option-label').textContent;
+    card.classList.toggle('selected', label.startsWith(value));
+  });
+}
+
+function setApproval(sectionKey, value) {
+  if (!currentName) return;
+  const data = loadData();
+  if (!data[sectionKey]) data[sectionKey] = {};
+
+  // Toggle: clicking same button again deselects
+  if (data[sectionKey].selection === value) {
+    delete data[sectionKey].selection;
+    saveData(data);
+    const section = document.querySelector(`[data-key="${sectionKey}"]`);
+    section.querySelectorAll('.approval-btn').forEach(b => b.classList.remove('selected'));
+    return;
+  }
+
+  data[sectionKey].selection = value;
+  saveData(data);
+
+  const section = document.querySelector(`[data-key="${sectionKey}"]`);
+  section.querySelectorAll('.approval-btn').forEach(btn => {
+    btn.classList.remove('selected');
+    if (btn.textContent === value) {
+      btn.classList.add('selected');
+    }
+  });
+}
+
+function saveNotes(sectionKey, value) {
+  if (!currentName) return;
+  const data = loadData();
+  if (!data[sectionKey]) data[sectionKey] = {};
+  data[sectionKey].notes = value;
+  saveData(data);
+}
+
+function copyPicks() {
+  if (!currentName) return;
+  const data = loadData();
+  let lines = [`${currentName}'s Style Picks — TBT Episode 1`, ''];
+
+  Object.keys(sectionLabels).forEach(key => {
+    const label = sectionLabels[key];
+    const entry = data[key];
+    const selection = entry?.selection || '(no pick yet)';
+    const notes = entry?.notes?.trim() || '';
+    lines.push(`${label}: ${selection}`);
+    if (notes) lines.push(`  Notes: ${notes}`);
+  });
+
+  lines.push('');
+  lines.push(`Recorded: ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`);
+
+  navigator.clipboard.writeText(lines.join('\n')).then(() => {
+    const msg = document.getElementById('exportMsg');
+    msg.textContent = 'Copied to clipboard!';
+    msg.classList.add('show');
+    setTimeout(() => msg.classList.remove('show'), 2500);
+  });
+}
+
+function clearAll() {
+  if (!currentName) return;
+  if (!confirm(`Clear all of ${currentName}'s selections? This cannot be undone.`)) return;
+  localStorage.removeItem(getStorageKey());
+  restoreSelections();
+  const msg = document.getElementById('exportMsg');
+  msg.textContent = 'Selections cleared.';
+  msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
